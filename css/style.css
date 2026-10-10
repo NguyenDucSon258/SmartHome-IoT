@@ -1,0 +1,938 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+:root {
+  --green-dark: #064e3b;
+  --green: #059669;
+  --green-light: #10b981;
+  --green-soft: #ecfdf5;
+  --background: #f5f8f7;
+  --white: #fff;
+  --text: #19333d;
+  --text-light: #4a5a57;
+  --border: #e5ece9;
+  --shadow: 0 5px 20px rgba(15, 70, 55, 0.06);
+
+  /* ===== CẤU HÌNH THẺ TRONG SUỐT (kính mờ) =====
+     --glass-bg   : độ trong suốt của thẻ. Số cuối càng nhỏ càng trong
+                    (0 = trong hoàn toàn, 1 = trắng đặc).
+     --glass-blur : độ mờ phía sau thẻ. 0px = nhìn rõ ảnh nhất. */
+  --glass-bg: rgba(255, 255, 255, 0.28);
+  --glass-bg-soft: rgba(255, 255, 255, 0.4);
+  --glass-blur: 3px;
+  --glass-border: rgba(255, 255, 255, 0.55);
+
+  /* ===== CẤU HÌNH ẢNH NỀN ===== */
+  --sidebar-width: 240px;
+  --bg-image: url("../images/background.jpg");
+}
+body {
+  font-family: "Inter", sans-serif;
+  background: var(--background);
+  color: var(--text);
+}
+.app {
+  display: flex;
+  min-height: 100vh;
+}
+.sidebar {
+  width: 240px;
+  min-height: 100vh;
+  background: linear-gradient(180deg, #063f36, #07594b);
+  padding: 25px 18px;
+  color: #fff;
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+}
+.logo-area {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 8px 35px;
+}
+.logo-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--green);
+  font-size: 22px;
+}
+.logo-area h2 {
+  font-size: 17px;
+}
+.logo-area span {
+  display: block;
+  font-size: 10px;
+  margin-top: 3px;
+  opacity: 0.75;
+}
+.menu {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.menu-item {
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.75);
+  padding: 13px 14px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  font-size: 13px;
+  transition: 0.2s;
+}
+.menu-item i {
+  font-size: 17px;
+}
+.menu-item:hover,
+.menu-item.active {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.13);
+}
+.menu-item.active {
+  background: linear-gradient(
+    90deg,
+    rgba(16, 185, 129, 0.55),
+    rgba(16, 185, 129, 0.25)
+  );
+}
+.weather-box {
+  position: absolute;
+  left: 18px;
+  right: 18px;
+  bottom: 25px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  padding: 14px;
+  background: rgba(255, 255, 255, 0.05);
+  display: flex;
+  gap: 12px;
+}
+.weather-icon {
+  font-size: 25px;
+  color: #facc15;
+}
+.weather-box small {
+  opacity: 0.7;
+  display: block;
+}
+.weather-box strong {
+  display: block;
+  font-size: 18px;
+}
+.weather-box span {
+  font-size: 10px;
+  opacity: 0.7;
+}
+
+/* ===== KHUNG NỘI DUNG CHÍNH + ẢNH NỀN =====
+   Ảnh nền được đặt bằng ::before (position: fixed) và chỉ phủ đúng
+   vùng .main (từ mép sidebar sang phải), nên không bị sidebar che
+   và luôn vừa khít khung hình khi cuộn trang hoặc đổi kích thước. */
+
+.main {
+  margin-left: 240px;
+  width: calc(100% - 240px);
+  min-height: 100vh;
+  position: relative;
+  z-index: 0;
+}
+.main::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: var(--sidebar-width);
+  z-index: -1;
+  /* không phủ lớp màu nào lên ảnh để nhìn rõ nền */
+  background-image: var(--bg-image);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.header {
+  height: 78px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border-bottom: 1px solid var(--glass-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 30px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.search-box {
+  width: 55%;
+  height: 42px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 15px;
+  color: #4a5a57;
+  background: var(--glass-bg-soft);
+  border-color: var(--glass-border);
+}
+.search-box input {
+  background: transparent;
+}
+.search-box input::placeholder {
+  color: #4a5a57;
+}
+.search-box input {
+  border: none;
+  outline: none;
+  width: 100%;
+  font-family: inherit;
+}
+.user-area {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+.notification {
+  position: relative;
+  font-size: 21px;
+}
+.notification-dot {
+  width: 7px;
+  height: 7px;
+  background: #ef4444;
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  right: -2px;
+}
+.user {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.avatar {
+  width: 38px;
+  height: 38px;
+  background: #dbe9e5;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--green-dark);
+  font-size: 20px;
+}
+.user strong {
+  display: block;
+  font-size: 12px;
+}
+.user span {
+  display: block;
+  font-size: 10px;
+  color: var(--text-light);
+  margin-top: 3px;
+}
+.content {
+  padding: 28px;
+  max-width: 1500px;
+  margin: auto;
+}
+.welcome {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+  padding: 18px 22px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+  border-radius: 13px;
+  box-shadow: var(--shadow);
+}
+.welcome h1 {
+  font-size: 25px;
+  margin-bottom: 6px;
+}
+.welcome p {
+  color: var(--text-light);
+  font-size: 12px;
+}
+.current-time {
+  display: flex;
+  gap: 20px;
+  color: var(--text-light);
+  font-size: 11px;
+}
+.current-time div {
+  display: flex;
+  gap: 7px;
+  align-items: center;
+}
+/* ===== KHỐI CÁC PHÒNG (mỗi phòng: nhiệt độ / độ ẩm / đèn) ===== */
+
+.rooms-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  margin-bottom: 18px;
+}
+.room-block {
+}
+.room-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  padding: 10px 16px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+  border-radius: 11px;
+}
+.room-heading-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--green-dark);
+}
+.room-heading-title i {
+  font-size: 17px;
+  color: var(--green);
+}
+/* chấm trạng thái ESP online/offline cạnh tên phòng */
+
+.esp-status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--text-light);
+}
+.esp-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #cbd5e1;
+  display: inline-block;
+  transition: 0.3s;
+}
+.esp-dot.online {
+  background: var(--green);
+  box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.15);
+}
+.esp-dot.offline {
+  background: #ef4444;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
+}
+.sensor-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1.25fr;
+  gap: 15px;
+}
+.sensor-card,
+.environment-card,
+.panel {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+  border-radius: 13px;
+  box-shadow: var(--shadow);
+}
+.sensor-card {
+  padding: 20px;
+}
+.sensor-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.sensor-title {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 13px;
+  font-weight: 600;
+}
+.sensor-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 17px;
+}
+.temperature .sensor-icon {
+  background: #fff1f1;
+  color: #ef4444;
+}
+.humidity .sensor-icon {
+  background: #eef6ff;
+  color: #3b82f6;
+}
+.light .sensor-icon.light-icon {
+  background: #fff7df;
+  color: #f59e0b;
+}
+.status {
+  font-size: 10px;
+  padding: 5px 9px;
+  border-radius: 20px;
+  font-weight: 600;
+}
+.status.good {
+  color: #059669;
+  background: #dcfce7;
+}
+.status.normal {
+  color: #2563eb;
+  background: #dbeafe;
+}
+.sensor-value {
+  margin-top: 17px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.sensor-value strong {
+  font-size: 27px;
+}
+.change {
+  font-size: 10px;
+  font-weight: 600;
+}
+.change.up,
+.change.down {
+  color: #059669;
+}
+.compare {
+  font-size: 9px;
+  color: #4a5a57;
+  margin: 4px 0 15px;
+}
+.progress-container {
+  height: 7px;
+  background: #edf1f2;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.progress-bar {
+  height: 100%;
+  border-radius: 10px;
+  transition: width 0.5s;
+}
+.temperature-bar {
+  width: 50%;
+  background: linear-gradient(90deg, #f87171, #facc15, #34d399);
+}
+.humidity-bar {
+  width: 55%;
+  background: linear-gradient(90deg, #60a5fa, #3b82f6);
+}
+.range {
+  display: flex;
+  justify-content: space-between;
+  font-size: 8px;
+  color: #4a5a57;
+  margin-top: 6px;
+}
+/* thẻ điều khiển đèn (ô thứ 3 trong mỗi phòng) */
+
+.light-card .sensor-title.light {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 13px;
+  font-weight: 600;
+}
+.light-status-row {
+  margin-top: 17px;
+  display: flex;
+  align-items: center;
+}
+.light-state {
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+}
+.light-state.on {
+  color: var(--green);
+}
+.light-state.off {
+  color: #4a5a57;
+}
+.light-buttons {
+  display: flex;
+  gap: 8px;
+  margin-top: 15px;
+}
+.light-btn {
+  flex: 1;
+  border: 1px solid var(--glass-border);
+  background: var(--glass-bg-soft);
+  padding: 9px 0;
+  border-radius: 9px;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  color: var(--text);
+  transition: 0.2s;
+}
+.light-btn i {
+  font-size: 14px;
+}
+.light-btn:hover {
+  opacity: 0.8;
+}
+.light-btn:active {
+  transform: scale(0.97);
+}
+.light-btn.btn-on.active {
+  background: var(--green);
+  border-color: var(--green);
+  color: #fff;
+}
+.light-btn.btn-off.active {
+  background: #4a5a57;
+  border-color: #4a5a57;
+  color: #fff;
+}
+.environment-card {
+  padding: 18px 20px;
+}
+.environment-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 13px;
+}
+.leaf-icon {
+  width: 34px;
+  height: 34px;
+  background: #dcfce7;
+  color: var(--green);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.environment-title strong {
+  font-size: 13px;
+}
+.environment-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 7px 0;
+  border-bottom: 1px solid #f0f3f2;
+}
+.environment-item:last-child {
+  border-bottom: none;
+}
+.environment-item div {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: #2f3f3c;
+  font-size: 11px;
+}
+.environment-item i {
+  font-size: 15px;
+  color: var(--green);
+}
+.panel {
+  padding: 20px;
+  margin-bottom: 15px;
+}
+.panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+.panel-title {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 13px;
+}
+.panel-icon {
+  width: 31px;
+  height: 31px;
+  border-radius: 9px;
+  background: var(--green-soft);
+  color: var(--green);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.panel-subtitle {
+  font-size: 9px;
+  color: #4a5a57;
+  margin-left: 40px;
+}
+.chart-buttons {
+  display: flex;
+  gap: 4px;
+  background: #f3f6f5;
+  padding: 3px;
+  border-radius: 8px;
+}
+.chart-button {
+  border: none;
+  background: transparent;
+  padding: 6px 12px;
+  font-size: 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.chart-button.active {
+  background: var(--green);
+  color: #fff;
+}
+.chart-container {
+  height: 300px;
+}
+.device-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+.device-card {
+  border: 1px solid var(--border);
+  border-radius: 11px;
+  padding: 14px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 10px;
+  background: var(--glass-bg-soft);
+  border-color: var(--glass-border);
+}
+.device-icon {
+  width: 39px;
+  height: 39px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+.device-icon.light {
+  background: #fff7df;
+  color: #f59e0b;
+}
+.device-icon.bedroom,
+.device-icon.curtain {
+  background: #eef2f7;
+  color: #64748b;
+}
+.device-icon.fan,
+.device-icon.purifier {
+  background: #dcfce7;
+  color: var(--green);
+}
+.device-icon.air {
+  background: #e0f2fe;
+  color: #0284c7;
+}
+.device-info strong {
+  display: block;
+  font-size: 10px;
+}
+.device-info span {
+  display: block;
+  color: #4a5a57;
+  font-size: 9px;
+  margin-top: 3px;
+}
+.switch {
+  position: relative;
+  width: 35px;
+  height: 19px;
+  display: inline-block;
+}
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.slider {
+  position: absolute;
+  inset: 0;
+  cursor: pointer;
+  background: #cbd5e1;
+  border-radius: 20px;
+  transition: 0.3s;
+}
+.slider::before {
+  content: "";
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  left: 2px;
+  top: 2px;
+  background: #fff;
+  border-radius: 50%;
+  transition: 0.3s;
+}
+.switch input:checked + .slider {
+  background: var(--green);
+}
+.switch input:checked + .slider:before {
+  transform: translateX(16px);
+}
+.expand-button {
+  border: none;
+  background: #f0fdf4;
+  color: var(--green);
+  border-radius: 7px;
+  padding: 7px 10px;
+  font-size: 10px;
+  cursor: pointer;
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+.expand-button:hover {
+  background: #dcfce7;
+}
+.panel.expanded {
+  position: fixed;
+  z-index: 1000;
+  left: 260px;
+  right: 20px;
+  top: 20px;
+  bottom: 20px;
+  margin: 0;
+  overflow: auto;
+  padding: 30px;
+  background: #fff;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+}
+.panel.expanded .device-grid {
+  grid-template-columns: repeat(3, 1fr);
+}
+.panel.expanded .activity-list {
+  max-height: calc(100vh - 150px);
+  overflow-y: auto;
+}
+.panel.expanded .history-table-wrapper {
+  max-height: calc(100vh - 160px);
+  overflow-y: auto;
+}
+.bottom-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 15px;
+}
+.bottom-grid .panel {
+  margin-bottom: 15px;
+}
+.activity-list {
+  display: flex;
+  flex-direction: column;
+}
+.activity-item {
+  display: flex;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid #eef2f1;
+}
+.activity-item :last-child {
+  border-bottom: none;
+}
+.activity-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  margin-top: 5px;
+}
+.activity-dot.green {
+  background: #10b981;
+}
+.activity-dot.blue {
+  background: #3b82f6;
+}
+.activity-item strong {
+  display: block;
+  font-size: 10px;
+}
+.activity-item span {
+  display: block;
+  font-size: 9px;
+  color: #4a5a57;
+  margin-top: 3px;
+}
+.history-summary {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 15px;
+}
+.history-summary div {
+  background: #f7faf9;
+  padding: 10px;
+  border-radius: 8px;
+}
+.history-summary span {
+  display: block;
+  font-size: 9px;
+  color: #4a5a57;
+}
+.history-summary strong {
+  display: block;
+  margin-top: 4px;
+  font-size: 14px;
+}
+.history-table-wrapper {
+  overflow-x: auto;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 10px;
+}
+th {
+  text-align: left;
+  color: #718096;
+  font-weight: 600;
+  padding: 9px;
+  border-bottom: 1px solid var(--border);
+}
+td {
+  padding: 9px;
+  border-bottom: 1px solid #f0f3f2;
+}
+.energy-box {
+  background: linear-gradient(120deg, #079669, #047857);
+  color: #fff;
+  padding: 20px;
+  border-radius: 13px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-top: 3px;
+}
+.energy-icon {
+  width: 45px;
+  height: 45px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 21px;
+}
+.energy-box strong {
+  font-size: 13px;
+}
+.energy-box p {
+  font-size: 9px;
+  opacity: 0.75;
+  margin-top: 4px;
+}
+.energy-value {
+  margin-left: auto;
+  text-align: right;
+}
+.energy-value strong {
+  font-size: 23px;
+}
+.energy-value span {
+  display: block;
+  font-size: 9px;
+  opacity: 0.7;
+}
+@media (max-width: 1100px) {
+  .sensor-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .environment-card {
+    grid-column: span 2;
+  }
+  .device-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 800px) {
+  :root {
+    --sidebar-width: 70px;
+  }
+  .sidebar {
+    width: 70px;
+    padding: 20px 10px;
+  }
+  .logo-area div:not(.logo-icon),
+  .menu-item span,
+  .weather-box {
+    display: none;
+  }
+  .logo-area {
+    justify-content: center;
+    padding-bottom: 30px;
+  }
+  .menu-item {
+    justify-content: center;
+  }
+  .main {
+    margin-left: 70px;
+    width: calc(100% - 70px);
+  }
+  .header {
+    padding: 0 15px;
+  }
+  .search-box {
+    width: 60%;
+  }
+  .content {
+    padding: 15px;
+  }
+  .sensor-grid {
+    grid-template-columns: 1fr;
+  }
+  .environment-card {
+    grid-column: auto;
+  }
+  .bottom-grid {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 550px) {
+  .device-grid {
+    grid-template-columns: 1fr;
+  }
+  .current-time {
+    display: none;
+  }
+  .welcome {
+    display: block;
+  }
+  .welcome h1 {
+    font-size: 21px;
+  }
+  .chart-buttons {
+    display: none;
+  }
+}

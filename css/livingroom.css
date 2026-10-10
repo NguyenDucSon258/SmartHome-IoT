@@ -1,0 +1,373 @@
+/* ===== livingroom.css ===== */
+:root {
+  --green: #2e9e5b;
+  --green-soft: #e3f4ea;
+  --orange: #e8890c;
+  --orange-soft: #fdf0dc;
+  --blue: #2f7fd1;
+  --blue-soft: #e2eefb;
+  --yellow: #f2b705;
+  --red: #d64545;
+  --text: #25322b;
+  --muted: #6b7a72;
+  --card: rgba(255, 255, 255, 0.82);
+  --radius: 20px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  font-family: "Segoe UI", Roboto, Arial, sans-serif;
+  color: var(--text);
+  /* Ảnh nền: css/livingroom.css -> ../images/background.jpg */
+  background:
+    linear-gradient(rgba(255, 252, 244, 0.35), rgba(255, 252, 244, 0.55)),
+    url("../images/background.jpg") center / cover no-repeat fixed;
+}
+
+/* ===== Header ===== */
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 32px;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 600;
+  padding: 8px 14px;
+  border-radius: 12px;
+  transition: background 0.2s;
+}
+
+.back-link:hover {
+  background: rgba(46, 158, 91, 0.12);
+}
+
+.topbar h1 {
+  font-size: 1.4rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.conn {
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: #eee;
+  color: var(--muted);
+}
+
+.conn.online {
+  background: var(--green-soft);
+  color: var(--green);
+}
+
+.conn.offline {
+  background: #fde4e4;
+  color: var(--red);
+}
+
+/* ===== Layout ===== */
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 28px 20px 48px;
+}
+
+.section-title {
+  margin: 28px 0 14px;
+  font-size: 1.1rem;
+  color: #fff;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.45);
+}
+
+.sensor-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  gap: 20px;
+}
+
+.sensor-card,
+.history-card {
+  background: var(--card);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: var(--radius);
+  padding: 22px;
+  box-shadow: 0 8px 28px rgba(30, 50, 40, 0.16);
+}
+
+.sensor-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.sensor-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+}
+
+.sensor-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  font-size: 1.2rem;
+}
+
+.sensor-title.temperature .sensor-icon {
+  background: var(--orange-soft);
+  color: var(--orange);
+}
+
+.sensor-title.humidity .sensor-icon {
+  background: var(--blue-soft);
+  color: var(--blue);
+}
+
+.sensor-title.light .sensor-icon {
+  background: #fff6d6;
+  color: var(--yellow);
+}
+
+/* ===== Status badge ===== */
+.status {
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 5px 12px;
+  border-radius: 999px;
+}
+
+.status.good {
+  background: var(--green-soft);
+  color: var(--green);
+}
+
+.status.warning {
+  background: #fff1d6;
+  color: #b9770e;
+}
+
+.status.normal {
+  background: #eceff1;
+  color: var(--muted);
+}
+
+/* ===== Value ===== */
+.sensor-value {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.sensor-value strong {
+  font-size: 2.6rem;
+  line-height: 1;
+}
+
+.change {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+.change.up {
+  color: var(--red);
+}
+
+.change.down {
+  color: var(--blue);
+}
+
+.compare {
+  margin: 8px 0 14px;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+/* ===== Progress ===== */
+.progress-container {
+  height: 8px;
+  background: rgba(0, 0, 0, 0.08);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  width: 0;
+  border-radius: 999px;
+  transition: width 0.6s ease;
+}
+
+.temperature-bar {
+  background: linear-gradient(90deg, #f6c453, var(--orange));
+}
+
+.humidity-bar {
+  background: linear-gradient(90deg, #7bb8f0, var(--blue));
+}
+
+.range {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+/* ===== Light ===== */
+.light-status-row {
+  margin: 4px 0 0;
+}
+
+.light-state {
+  font-size: 2.6rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.light-state.on {
+  color: var(--yellow);
+  text-shadow: 0 0 18px rgba(242, 183, 5, 0.6);
+}
+
+.light-state.off {
+  color: #9aa5a0;
+}
+
+.light-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.light-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px;
+  border: 2px solid transparent;
+  border-radius: 14px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  background: #f1f3f2;
+  color: var(--muted);
+  transition: all 0.2s;
+}
+
+.light-btn:hover {
+  transform: translateY(-1px);
+}
+
+.light-btn.btn-on.active {
+  background: #fff3c4;
+  color: #8a6500;
+  border-color: var(--yellow);
+}
+
+.light-btn.btn-off.active {
+  background: #e4e8e6;
+  color: #3b4742;
+  border-color: #9aa5a0;
+}
+
+/* ===== History ===== */
+.history-card h3 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.history-note {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-bottom: 14px;
+}
+
+.history-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.history-table th,
+.history-table td {
+  padding: 12px 10px;
+  text-align: left;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+}
+
+.history-table th {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+
+.history-table tr:last-child td {
+  border-bottom: none;
+}
+
+.empty {
+  text-align: center;
+  color: var(--muted);
+  padding: 20px 0;
+}
+
+.btn-clear {
+  margin-top: 14px;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 10px;
+  background: #fde4e4;
+  color: var(--red);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.btn-clear:hover {
+  background: #fbd0d0;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 600px) {
+  .topbar {
+    padding: 14px 16px;
+    flex-wrap: wrap;
+  }
+
+  .sensor-value strong,
+  .light-state {
+    font-size: 2.2rem;
+  }
+}

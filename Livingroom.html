@@ -1,0 +1,396 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Phòng khách - Smart Home</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <link rel="stylesheet" href="css/livingroom.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="back-link" href="Homepage.html"
+        ><i class="bi bi-arrow-left"></i> Trang chủ</a
+      >
+      <h1><i class="bi bi-house-heart-fill"></i> Phòng khách</h1>
+      <span class="conn" id="connStatus">Đang kết nối...</span>
+    </header>
+
+    <main class="container">
+      <h2 class="section-title">Thông số phòng</h2>
+      <div class="sensor-grid">
+        <!-- Nhiệt độ -->
+        <div class="sensor-card">
+          <div class="sensor-header">
+            <div class="sensor-title temperature">
+              <div class="sensor-icon">
+                <i class="bi bi-thermometer-half"></i>
+              </div>
+              <span>Nhiệt độ</span>
+            </div>
+            <span class="status normal" id="room1-temp-status"
+              >Chờ dữ liệu</span
+            >
+          </div>
+          <div class="sensor-value">
+            <strong id="room1-temperature">--°C</strong>
+            <span class="change" id="room1-temperature-changewrap"
+              ><i class="bi bi-dash" id="room1-temperature-icon"></i
+              ><span id="room1-temperature-change">--</span></span
+            >
+          </div>
+          <p class="compare">So với lần đo trước</p>
+          <div class="progress-container">
+            <div
+              class="progress-bar temperature-bar"
+              id="room1-temperature-bar"
+            ></div>
+          </div>
+          <div class="range">
+            <span>15°C</span><span>25°C</span><span>35°C</span>
+          </div>
+        </div>
+
+        <!-- Độ ẩm -->
+        <div class="sensor-card">
+          <div class="sensor-header">
+            <div class="sensor-title humidity">
+              <div class="sensor-icon"><i class="bi bi-droplet-fill"></i></div>
+              <span>Độ ẩm</span>
+            </div>
+            <span class="status normal" id="room1-hum-status">Chờ dữ liệu</span>
+          </div>
+          <div class="sensor-value">
+            <strong id="room1-humidity">--%</strong>
+            <span class="change" id="room1-humidity-changewrap"
+              ><i class="bi bi-dash" id="room1-humidity-icon"></i
+              ><span id="room1-humidity-change">--</span></span
+            >
+          </div>
+          <p class="compare">So với lần đo trước</p>
+          <div class="progress-container">
+            <div
+              class="progress-bar humidity-bar"
+              id="room1-humidity-bar"
+            ></div>
+          </div>
+          <div class="range">
+            <span>30%</span><span>60%</span><span>90%</span>
+          </div>
+        </div>
+
+        <!-- Đèn -->
+        <div class="sensor-card light-card">
+          <div class="sensor-header">
+            <div class="sensor-title light">
+              <div class="sensor-icon light-icon">
+                <i class="bi bi-lightbulb-fill"></i>
+              </div>
+              <span>Đèn phòng</span>
+            </div>
+            <span class="status normal" id="room1-light-status">Đang tắt</span>
+          </div>
+          <div class="light-status-row">
+            <span class="light-state off" id="room1-light-state">TẮT</span>
+          </div>
+          <p class="compare">Nhấn để điều khiển đèn</p>
+          <div class="light-buttons">
+            <button
+              class="light-btn btn-on"
+              id="room1-btn-on"
+              onclick="setRoomLight('room1', true)"
+            >
+              <i class="bi bi-lightbulb"></i>Bật
+            </button>
+            <button
+              class="light-btn btn-off active"
+              id="room1-btn-off"
+              onclick="setRoomLight('room1', false)"
+            >
+              <i class="bi bi-lightbulb-off"></i>Tắt
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <h2 class="section-title">Lịch sử đo</h2>
+      <section class="history-card">
+        <h3><i class="bi bi-clock-history"></i> 3 lần đo gần nhất</h3>
+        <p class="history-note">
+          Lưu trong trình duyệt (localStorage). Lần đo thứ 4 sẽ thay thế lần cũ
+          nhất.
+        </p>
+        <table class="history-table">
+          <thead>
+            <tr>
+              <th>Thời gian</th>
+              <th>Nhiệt độ</th>
+              <th>Độ ẩm</th>
+            </tr>
+          </thead>
+          <tbody id="historyBody"></tbody>
+        </table>
+        <button class="btn-clear" onclick="clearHistory()">
+          <i class="bi bi-trash"></i> Xóa lịch sử
+        </button>
+      </section>
+    </main>
+
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+
+    <script>
+      // ============ 1. Cấu hình Firebase ============
+      // Thay bằng cấu hình trong file js/app.js của bạn.
+      const firebaseConfig = {
+        apiKey: "YOUR_API_KEY",
+        authDomain: "YOUR_PROJECT.firebaseapp.com",
+        databaseURL: "https://YOUR_PROJECT-default-rtdb.firebaseio.com",
+        projectId: "YOUR_PROJECT",
+        appId: "YOUR_APP_ID",
+      };
+
+      firebase.initializeApp(firebaseConfig);
+      const db = firebase.database();
+
+      // Đường dẫn của phòng khách (room1)
+      const SENSOR_PATH = "sensor";
+      const LED_PATH = "control/room1/led";
+
+      // ============ 2. Lịch sử: chỉ giữ 3 kết quả mới nhất ============
+      const STORAGE_KEY = "livingroom_history";
+      const MAX_HISTORY = 3;
+
+      function loadHistory() {
+        try {
+          const data = JSON.parse(localStorage.getItem(STORAGE_KEY));
+          return Array.isArray(data) ? data.slice(0, MAX_HISTORY) : [];
+        } catch (e) {
+          return [];
+        }
+      }
+
+      function persistHistory() {
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(history));
+        } catch (e) {
+          console.warn("Không ghi được localStorage:", e);
+        }
+      }
+
+      let history = loadHistory();
+
+      // Lấy chữ ký của lần đo gần nhất đã lưu, tránh ghi trùng khi tải lại trang
+      let lastRecorded = history.length
+        ? `${history[0].temperature}|${history[0].humidity}`
+        : null;
+
+      function renderHistory() {
+        const body = document.getElementById("historyBody");
+
+        if (history.length === 0) {
+          body.innerHTML =
+            '<tr><td colspan="3" class="empty">Chưa có dữ liệu</td></tr>';
+          return;
+        }
+
+        body.innerHTML = history
+          .map(
+            (item) => `
+        <tr>
+          <td>${item.time}</td>
+          <td>${item.temperature}°C</td>
+          <td>${item.humidity}%</td>
+        </tr>
+      `,
+          )
+          .join("");
+      }
+
+      function saveReading(temperature, humidity) {
+        const signature = `${temperature}|${humidity}`;
+
+        // Không ghi lặp nếu dữ liệu không đổi
+        if (signature === lastRecorded) return;
+        lastRecorded = signature;
+
+        history.unshift({
+          temperature,
+          humidity,
+          time: new Date().toLocaleString("vi-VN"),
+        });
+
+        history = history.slice(0, MAX_HISTORY);
+        persistHistory();
+        renderHistory();
+      }
+
+      function clearHistory() {
+        history = [];
+        lastRecorded = null;
+        try {
+          localStorage.removeItem(STORAGE_KEY);
+        } catch (e) {}
+        renderHistory();
+      }
+
+      // ============ 3. Đánh giá & hiển thị cảm biến ============
+      const TEMP_MIN = 15,
+        TEMP_MAX = 35;
+      const HUM_MIN = 30,
+        HUM_MAX = 90;
+
+      function setStatus(el, ok) {
+        el.textContent = ok ? "Tốt" : "Cần chú ý";
+        el.className = "status " + (ok ? "good" : "warning");
+      }
+
+      function setChange(prefix, diff, unit) {
+        const wrap = document.getElementById(`${prefix}-changewrap`);
+        const icon = document.getElementById(`${prefix}-icon`);
+        const text = document.getElementById(`${prefix}-change`);
+
+        if (diff === null || Math.abs(diff) < 0.05) {
+          wrap.className = "change";
+          icon.className = "bi bi-dash";
+          text.textContent = "0" + unit;
+        } else if (diff > 0) {
+          wrap.className = "change up";
+          icon.className = "bi bi-arrow-up";
+          text.textContent = "+" + diff.toFixed(1) + unit;
+        } else {
+          wrap.className = "change down";
+          icon.className = "bi bi-arrow-down";
+          text.textContent = diff.toFixed(1) + unit;
+        }
+      }
+
+      function percent(value, min, max) {
+        return Math.max(0, Math.min(100, ((value - min) / (max - min)) * 100));
+      }
+
+      function updateSensors(t, h) {
+        document.getElementById("room1-temperature").textContent = t + "°C";
+        document.getElementById("room1-humidity").textContent = h + "%";
+
+        document.getElementById("room1-temperature-bar").style.width =
+          percent(t, TEMP_MIN, TEMP_MAX) + "%";
+        document.getElementById("room1-humidity-bar").style.width =
+          percent(h, HUM_MIN, HUM_MAX) + "%";
+
+        setStatus(
+          document.getElementById("room1-temp-status"),
+          t >= 18 && t <= 30,
+        );
+        setStatus(
+          document.getElementById("room1-hum-status"),
+          h >= 30 && h <= 70,
+        );
+
+        // So với lần đo đã lưu gần nhất (trước khi ghi lần mới)
+        const prev = history[0];
+        const isNew = `${t}|${h}` !== lastRecorded;
+        const base = isNew ? prev : history[1];
+
+        setChange(
+          "room1-temperature",
+          base ? t - base.temperature : null,
+          "°C",
+        );
+        setChange("room1-humidity", base ? h - base.humidity : null, "%");
+      }
+
+      function readSensorData(data) {
+        if (!data) return;
+
+        // Hỗ trợ dữ liệu lồng trong room1
+        if (data.room1) data = data.room1;
+
+        const temperature = data.temperature ?? data.temp ?? data.nhietdo;
+        const humidity = data.humidity ?? data.humid ?? data.doam;
+
+        if (temperature == null || humidity == null) return;
+
+        const t = Number(temperature);
+        const h = Number(humidity);
+        if (!Number.isFinite(t) || !Number.isFinite(h)) return;
+
+        updateSensors(t, h);
+        saveReading(t, h);
+      }
+
+      db.ref(SENSOR_PATH).on(
+        "value",
+        (snapshot) => {
+          readSensorData(snapshot.val());
+        },
+        (error) => {
+          console.error("Lỗi đọc cảm biến:", error);
+        },
+      );
+
+      // ============ 4. Điều khiển đèn ============
+      const ledRef = db.ref(LED_PATH);
+
+      function renderLight(state) {
+        const stateEl = document.getElementById("room1-light-state");
+        const statusEl = document.getElementById("room1-light-status");
+
+        stateEl.textContent = state ? "BẬT" : "TẮT";
+        stateEl.className = "light-state " + (state ? "on" : "off");
+        statusEl.textContent = state ? "Đang bật" : "Đang tắt";
+
+        document
+          .getElementById("room1-btn-on")
+          .classList.toggle("active", state);
+        document
+          .getElementById("room1-btn-off")
+          .classList.toggle("active", !state);
+      }
+
+      ledRef.on(
+        "value",
+        (snapshot) => {
+          renderLight(snapshot.val() === true);
+        },
+        (error) => {
+          document.getElementById("room1-light-status").textContent =
+            "Lỗi đọc đèn";
+          console.error("Lỗi đọc trạng thái đèn:", error);
+        },
+      );
+
+      async function setRoomLight(room, state) {
+        try {
+          await db.ref(`control/${room}/led`).set(state);
+        } catch (error) {
+          alert("Không thể điều khiển đèn. Hãy kiểm tra Firebase.");
+          console.error(error);
+        }
+      }
+
+      // ============ 5. Trạng thái kết nối ============
+      db.ref(".info/connected").on("value", (snap) => {
+        const el = document.getElementById("connStatus");
+        const online = snap.val() === true;
+        el.textContent = online ? "Đã kết nối" : "Mất kết nối";
+        el.className = "conn " + (online ? "online" : "offline");
+      });
+
+      // ============ 6. Hiển thị lịch sử cũ ngay khi mở trang ============
+      renderHistory();
+      if (history.length) {
+        updateSensors(history[0].temperature, history[0].humidity);
+      }
+    </script>
+  </body>
+</html>

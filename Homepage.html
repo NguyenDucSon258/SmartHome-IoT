@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Home-Homepage</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+<div class="app">
+    <aside class="sidebar">
+        <div class="logo-area">
+            <div class="logo-icon"><i class="bi bi-house-fill"></i></div>
+            <div><h2>Smart Home</h2><span>Ngôi nhà thông minh</span></div>
+        </div>
+        <nav class="menu">
+            <a href="Livingroom.html" class="menu-item"><i class="bi bi-house-fill"></i><span>Phòng khách</span></a>
+            <a href="Bedroom.html" class="menu-item"><i class="bi bi-house-heart-fill"></i><span>Phòng ngủ</span></a>
+        </nav>
+
+        <div class="weather-box">
+            <div class="weather-icon">
+                <i class="bi bi-cloud-sun-fill"></i>    
+            </div>
+            <div>
+                <small>Hôm nay</small>
+                <strong>32°C</strong>
+                <span>Trời quang mây</span>
+            </div>
+        </div>
+    </aside>
+
+    <main class="main">
+        <header class="header">
+            <div class="search-box"><i class="bi bi-search"></i><input type="text" placeholder="Tìm kiếm thiết bị, tính năng..."></div>
+            <div class="user-area">
+                <div class="notification"><i class="bi bi-bell"></i><span class="notification-dot"></span></div>
+                <div class="user"><div class="avatar"><i class="bi bi-person-fill"></i></div><div><strong>Người dùng</strong><span>Thành viên</span></div></div>
+            </div>
+        </header>
+
+        <section class="content">
+            <div class="welcome">
+                <div><h1>Xin chào! 👋</h1><p>Chào mừng bạn trở lại. Ngôi nhà của bạn đang hoạt động ổn định.</p></div>
+                <div class="current-time">
+                    <div><i class="bi bi-calendar3"></i><span id="currentDate">--</span></div>
+                    <div><i class="bi bi-clock"></i><span id="currentTime">--</span></div>
+                </div>
+            </div>
+
+            <!-- ===== KHU VỰC 2 PHÒNG - MỖI PHÒNG: NHIỆT ĐỘ / ĐỘ ẨM / ĐÈN =====
+                 room1 <- Firebase node "sensor"  (ESP1)
+                 room2 <- Firebase node "sensor1" (ESP2)
+            -->
+            <div class="rooms-wrapper">
+                <div class="room-block">
+                    <div class="room-heading">
+                        <div class="room-heading-title"><i class="bi bi-door-open-fill"></i><span>Phòng khách</span></div>
+                        <div class="esp-status">
+                            <span class="esp-dot offline" id="room1-esp-dot"></span>
+                            <span id="room1-esp-text">Đang chờ dữ liệu...</span>
+                        </div>
+                    </div>
+                    <div class="sensor-grid">
+                        <div class="sensor-card">
+                            <div class="sensor-header">
+                                <div class="sensor-title temperature"><div class="sensor-icon"> </div><span>Nhiệt độ</span></div>
+                                <span class="status good" id="room1-temp-status">Tốt</span>
+                            </div>
+                            <div class="sensor-value"><strong id="room1-temperature">--°C</strong><span class="change up"><i class="bi bi-arrow-up"></i><span id="room1-temperature-change">--</span></span></div>
+                            <p class="compare">So với 1 giờ trước</p>
+                            <div class="progress-container"><div class="progress-bar temperature-bar" id="room1-temperature-bar"></div></div>
+                            <div class="range"><span>15°C</span><span>25°C</span><span>35°C</span></div>
+                        </div>
+
+                        <div class="sensor-card">
+                            <div class="sensor-header">
+                                <div class="sensor-title humidity"><div class="sensor-icon"><i class="bi bi-droplet-fill"></i></div><span>Độ ẩm</span></div>
+                                <span class="status good" id="room1-hum-status">Tốt</span>
+                            </div>
+                            <div class="sensor-value"><strong id="room1-humidity">--%</strong><span class="change down"><i class="bi bi-arrow-down"></i><span id="room1-humidity-change">--</span></span></div>
+                            <p class="compare">So với 1 giờ trước</p>
+                            <div class="progress-container"><div class="progress-bar humidity-bar" id="room1-humidity-bar"></div></div>
+                            <div class="range"><span>30%</span><span>60%</span><span>90%</span></div>
+                        </div>
+
+                        <div class="sensor-card light-card">
+                            <div class="sensor-header">
+                                <div class="sensor-title light"><div class="sensor-icon light-icon"><i class="bi bi-lightbulb-fill"></i></div><span>Đèn phòng</span></div>
+                                <span class="status normal" id="room1-light-status">Đang tắt</span>
+                            </div>
+                            <div class="light-status-row">
+                                <span class="light-state off" id="room1-light-state">TẮT</span>
+                            </div>
+                            <p class="compare">Nhấn để điều khiển đèn</p>
+                            <div class="light-buttons">
+                                <button class="light-btn btn-on" id="room1-btn-on" onclick="setRoomLight('room1', true)"><i class="bi bi-lightbulb"></i>Bật</button>
+                                <button class="light-btn btn-off active" id="room1-btn-off" onclick="setRoomLight('room1', false)"><i class="bi bi-lightbulb-off"></i>Tắt</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="room-block">
+                    <div class="room-heading">
+                        <div class="room-heading-title"><i class="bi bi-door-open-fill"></i><span>Phòng ngủ</span></div>
+                        <div class="esp-status">
+                            <span class="esp-dot offline" id="room2-esp-dot"></span>
+                            <span id="room2-esp-text">Đang chờ dữ liệu...</span>
+                        </div>
+                    </div>
+                    <div class="sensor-grid">
+                        <div class="sensor-card">
+                            <div class="sensor-header">
+                                <div class="sensor-title temperature"><div class="sensor-icon"><i class="bi bi-thermometer-half"></i></div><span>Nhiệt độ</span></div>
+                                <span class="status good" id="room2-temp-status">Tốt</span>
+                            </div>
+                            <div class="sensor-value"><strong id="room2-temperature">--°C</strong><span class="change up"><i class="bi bi-arrow-up"></i><span id="room2-temperature-change">--</span></span></div>
+                            <p class="compare">So với 1 giờ trước</p>
+                            <div class="progress-container"><div class="progress-bar temperature-bar" id="room2-temperature-bar"></div></div>
+                            <div class="range"><span>15°C</span><span>25°C</span><span>35°C</span></div>
+                        </div>
+
+                        <div class="sensor-card">
+                            <div class="sensor-header">
+                                <div class="sensor-title humidity"><div class="sensor-icon"><i class="bi bi-droplet-fill"></i></div><span>Độ ẩm</span></div>
+                                <span class="status good" id="room2-hum-status">Tốt</span>
+                            </div>
+                            <div class="sensor-value"><strong id="room2-humidity">--%</strong><span class="change down"><i class="bi bi-arrow-down"></i><span id="room2-humidity-change">--</span></span></div>
+                            <p class="compare">So với 1 giờ trước</p>
+                            <div class="progress-container"><div class="progress-bar humidity-bar" id="room2-humidity-bar"></div></div>
+                            <div class="range"><span>30%</span><span>60%</span><span>90%</span></div>
+                        </div>
+
+                        <div class="sensor-card light-card">
+                            <div class="sensor-header">
+                                <div class="sensor-title light"><div class="sensor-icon light-icon"><i class="bi bi-lightbulb-fill"></i></div><span>Đèn phòng</span></div>
+                                <span class="status normal" id="room2-light-status">Đang tắt</span>
+                            </div>
+                            <div class="light-status-row">
+                                <span class="light-state off" id="room2-light-state">TẮT</span>
+                            </div>
+                            <p class="compare">Nhấn để điều khiển đèn</p>
+                            <div class="light-buttons">
+                                <button class="light-btn btn-on" id="room2-btn-on" onclick="setRoomLight('room2', true)"><i class="bi bi-lightbulb"></i>Bật</button>
+                                <button class="light-btn btn-off active" id="room2-btn-off" onclick="setRoomLight('room2', false)"><i class="bi bi-lightbulb-off"></i>Tắt</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- ===== HẾT KHU VỰC 2 PHÒNG ===== -->
+
+            <div class="environment-card">
+                <div class="environment-title"><div class="leaf-icon"><i class="bi bi-leaf-fill"></i></div><strong>Tình trạng môi trường</strong></div>
+                <div class="environment-item"><div><i class="bi bi-wind"></i><span>Không khí</span></div><span class="status good">Tốt</span></div>
+                <div class="environment-item"><div><i class="bi bi-brightness-high-fill"></i><span>Ánh sáng</span></div><span class="status good">Tốt</span></div>
+                <div class="environment-item"><div><i class="bi bi-tree-fill"></i><span>Chất lượng không khí</span></div><span class="status good">Tốt</span></div>
+            </div>
+
+            <div class="panel" id="devicePanel">
+                <div class="panel-header">
+                    <div><div class="panel-title"><div class="panel-icon"><i class="bi bi-toggles"></i></div><strong>Điều khiển thiết bị</strong></div><span class="panel-subtitle">Điều khiển thiết bị trong nhà</span></div>
+                    <button class="expand-button" onclick="expandPanel('devicePanel')"><i class="bi bi-arrows-fullscreen"></i><span>Mở rộng</span></button>
+                </div>
+                <div class="device-grid">
+                    <div class="device-card"><div class="device-icon light"><i class="bi bi-lightbulb-fill"></i></div><div class="device-info"><strong>Đèn phòng khách</strong><span>Đang tắt</span></div><label class="switch"><input type="checkbox" id="livingLight" onchange="controlDevice('livingLight', this.checked)"><span class="slider"></span></label></div>
+                    <div class="device-card"><div class="device-icon bedroom"><i class="bi bi-lamp-fill"></i></div><div class="device-info"><strong>Đèn phòng ngủ</strong><span>Đang tắt</span></div><label class="switch"><input type="checkbox" id="bedroomLight" onchange="controlDevice('bedroomLight', this.checked)"><span class="slider"></span></label></div>
+                </div>
+            </div>
+        </section>
+    </main>
+</div>
+
+<script>
+// Điều khiển đèn theo từng phòng bằng 2 nút Bật / Tắt
+function setRoomLight(roomId, isOn) {
+    const stateEl = document.getElementById(`${roomId}-light-state`);
+    const statusEl = document.getElementById(`${roomId}-light-status`);
+    const btnOn = document.getElementById(`${roomId}-btn-on`);
+    const btnOff = document.getElementById(`${roomId}-btn-off`);
+
+    stateEl.textContent = isOn ? 'BẬT' : 'TẮT';
+    stateEl.classList.toggle('on', isOn);
+    stateEl.classList.toggle('off', !isOn);
+
+    statusEl.textContent = isOn ? 'Đang sáng' : 'Đang tắt';
+    statusEl.classList.toggle('good', isOn);
+    statusEl.classList.toggle('normal', !isOn);
+
+    btnOn.classList.toggle('active', isOn);
+    btnOff.classList.toggle('active', !isOn);
+
+    // TODO: gửi lệnh thật xuống ESP8266 / STM32 tại đây, ví dụ:
+    // fetch(`/api/${roomId}/light`, { method: 'POST', body: JSON.stringify({ on: isOn }) });
+}
+</script>
+<script type="module" src="js/app.js"></script>
+</body>
+</html>
