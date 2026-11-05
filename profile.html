@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tài Khoản & Quản Lý Đơn Hàng - SmartHome Store</title>
+  
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  
+  <!-- Store CSS -->
+  <link rel="stylesheet" href="css/store.css">
+</head>
+<body>
+
+  <!-- ================= TOP ANNOUNCEMENT BAR ================= -->
+  <div class="top-bar">
+    <div class="container">
+      <div class="top-bar-left">
+        <span class="top-bar-badge">Khách hàng thân thiết</span>
+        <span>🎁 Bạn đang có <strong>1,250 điểm tích lũy</strong> (Tương đương voucher giảm 125.000đ)</span>
+      </div>
+      <div class="top-bar-right">
+        <span class="top-bar-link"><i class="bi bi-telephone-fill"></i> Hỗ trợ VIP: 1900 6868</span>
+        <a href="Homepage.html" class="dashboard-btn-pill">
+          <i class="bi bi-speedometer2"></i> Hệ thống IoT Dashboard
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= MAIN HEADER ================= -->
+  <header class="site-header">
+    <div class="header-main">
+      <div class="container">
+        <!-- Logo -->
+        <a href="index.html" class="brand-logo">
+          <div class="brand-icon">
+            <i class="bi bi-house-gear-fill"></i>
+          </div>
+          <div class="brand-text">
+            <h1>SmartHome <span>Store</span></h1>
+            <p>Thiết bị Nhà Thông Minh</p>
+          </div>
+        </a>
+
+        <!-- Search Bar -->
+        <div class="header-search">
+          <div class="search-input-wrap">
+            <i class="bi bi-search"></i>
+            <input type="text" id="headerSearchInput" placeholder="Tìm kiếm cảm biến, công tắc, camera, khóa..." autocomplete="off">
+            <button class="search-btn" onclick="window.location.href='catalog.html?search=' + encodeURIComponent(document.getElementById('headerSearchInput').value)">
+              Tìm kiếm
+            </button>
+          </div>
+          <div class="search-results-dropdown" id="headerSearchDropdown"></div>
+        </div>
+
+        <!-- Header Actions -->
+        <div class="header-actions">
+          <a href="profile.html?tab=wishlist" class="action-btn" title="Danh sách yêu thích">
+            <div class="action-icon-wrap">
+              <i class="bi bi-heart"></i>
+              <span class="badge-count wishlist-count-badge" style="display:none;">0</span>
+            </div>
+            <div class="action-text d-none-mobile">
+              <small>Yêu thích</small>
+              <strong>Sản phẩm</strong>
+            </div>
+          </a>
+
+          <button class="action-btn btn-open-cart" title="Xem giỏ hàng">
+            <div class="action-icon-wrap">
+              <i class="bi bi-cart3"></i>
+              <span class="badge-count cart-count-badge" style="display:none;">0</span>
+            </div>
+            <div class="action-text">
+              <small>Giỏ hàng</small>
+              <strong class="cart-total-header">0đ</strong>
+            </div>
+          </button>
+
+          <!-- User Menu -->
+          <div class="user-menu-wrapper">
+            <div class="user-btn-trigger" id="userMenuBtn">
+              <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=100&q=80" alt="Avatar" class="user-avatar-sm">
+              <i class="bi bi-chevron-down" style="font-size:12px; color:var(--text-muted);"></i>
+            </div>
+            <div class="user-dropdown-menu" id="userDropdown">
+              <div class="dropdown-user-header">
+                <strong class="profile-user-fullname">Nguyễn Văn An</strong>
+                <span class="profile-user-tier">Thành viên Vàng</span>
+              </div>
+              <a href="profile.html?tab=overview" class="dropdown-item">
+                <i class="bi bi-person-circle"></i> Tài khoản của tôi
+              </a>
+              <a href="profile.html?tab=orders" class="dropdown-item">
+                <i class="bi bi-box-seam"></i> Quản lý đơn hàng
+              </a>
+              <a href="profile.html?tab=addresses" class="dropdown-item">
+                <i class="bi bi-geo-alt"></i> Sổ địa chỉ nhận
+              </a>
+              <a href="profile.html?tab=wishlist" class="dropdown-item">
+                <i class="bi bi-heart"></i> Danh sách yêu thích
+              </a>
+              <a href="profile.html?tab=security" class="dropdown-item">
+                <i class="bi bi-shield-lock"></i> Đổi mật khẩu
+              </a>
+              <a href="Homepage.html" class="dropdown-item" style="color:var(--primary); font-weight:600; border-top:1px solid var(--border-light); margin-top:4px;">
+                <i class="bi bi-cpu" style="color:var(--primary);"></i> Vào IoT Dashboard
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Secondary Nav Bar -->
+    <nav class="header-nav">
+      <div class="container">
+        <ul class="nav-links">
+          <li class="nav-item"><a href="index.html"><i class="bi bi-house-door"></i> Trang chủ</a></li>
+          <li class="nav-item"><a href="catalog.html"><i class="bi bi-grid"></i> Tất cả sản phẩm</a></li>
+          <li class="nav-item"><a href="catalog.html?category=sensor"><i class="bi bi-broadcast-pin"></i> Cảm biến thông minh</a></li>
+          <li class="nav-item"><a href="catalog.html?category=switch"><i class="bi bi-toggle-on"></i> Công tắc & Ổ cắm</a></li>
+          <li class="nav-item"><a href="catalog.html?category=light"><i class="bi bi-lightbulb"></i> Chiếu sáng RGB</a></li>
+          <li class="nav-item"><a href="catalog.html?category=security"><i class="bi bi-shield-check"></i> Khóa & Camera AI</a></li>
+          <li class="nav-item"><a href="catalog.html?category=combo"><i class="bi bi-box-seam"></i> Combo Tiết Kiệm <span class="badge-hot">HOT</span></a></li>
+          <li class="nav-item" style="margin-left:auto;"><a href="checkout.html"><i class="bi bi-credit-card"></i> Thanh toán đơn</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <!-- ================= PROFILE CONTENT ================= -->
+  <main class="profile-page-layout" id="profileMainContainer">
+    <div class="container">
+      
+      <!-- Profile Header Hero Card -->
+      <div class="profile-header-card">
+        <div class="profile-user-left">
+          <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=200&q=80" alt="Avatar" class="profile-avatar-large">
+          <div class="profile-user-info">
+            <h2 class="profile-user-fullname">Nguyễn Văn An</h2>
+            <div style="font-size: 13px; color: #cbd5e1; margin-bottom: 8px;" class="profile-user-email">nguyenvanan.iot@gmail.com</div>
+            <div class="profile-tier-badge">
+              <i class="bi bi-award-fill" style="color:#fbbf24;"></i> <span class="profile-user-tier">Thành viên Vàng (Gold Member)</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="profile-quick-stats">
+          <div class="quick-stat-box">
+            <strong id="statTotalOrders">2</strong>
+            <span>Đơn hàng</span>
+          </div>
+          <div class="quick-stat-box">
+            <strong id="statShippingOrders">1</strong>
+            <span>Đang giao</span>
+          </div>
+          <div class="quick-stat-box">
+            <strong class="profile-user-points">1,250</strong>
+            <span>Điểm tích lũy</span>
+          </div>
+          <div class="quick-stat-box">
+            <strong id="statWishlistCount">0</strong>
+            <span>Yêu thích</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Profile Grid -->
+      <div class="profile-main-grid">
+        
+        <!-- Left Sidebar Navigation Menu -->
+        <aside class="profile-sidebar-menu">
+          <button class="profile-tab-btn active" data-tab="overview">
+            <i class="bi bi-speedometer2"></i> Tổng quan tài khoản
+          </button>
+          <button class="profile-tab-btn" data-tab="orders">
+            <i class="bi bi-box-seam-fill"></i> Đơn hàng của tôi
+          </button>
+          <button class="profile-tab-btn" data-tab="info">
+            <i class="bi bi-person-lines-fill"></i> Thông tin cá nhân
+          </button>
+          <button class="profile-tab-btn" data-tab="addresses">
+            <i class="bi bi-geo-alt-fill"></i> Sổ địa chỉ nhận hàng
+          </button>
+          <button class="profile-tab-btn" data-tab="wishlist">
+            <i class="bi bi-heart-fill"></i> Sản phẩm yêu thích
+          </button>
+          <button class="profile-tab-btn" data-tab="security">
+            <i class="bi bi-shield-lock-fill"></i> Bảo mật & Đổi mật khẩu
+          </button>
+
+          <div style="border-top:1px solid var(--border-light); margin-top:12px; padding-top:12px;">
+            <a href="Homepage.html" class="profile-tab-btn" style="color:var(--primary); font-weight:700;">
+              <i class="bi bi-cpu-fill" style="color:var(--primary);"></i> Hệ thống IoT Dashboard
+            </a>
+            <a href="index.html" class="profile-tab-btn" onclick="showToast('Đã đăng xuất tài khoản thành công', 'info'); return false;" style="color:var(--danger);">
+              <i class="bi bi-box-arrow-right" style="color:var(--danger);"></i> Đăng xuất
+            </a>
+          </div>
+        </aside>
+
+        <!-- Right Content Panes -->
+        <section class="profile-content-area">
+          
+          <!-- TAB 1: OVERVIEW -->
+          <div class="profile-tab-pane active" id="tab-overview">
+            <div class="pane-header">
+              <h3><i class="bi bi-bar-chart-fill" style="color:var(--primary);"></i> Tổng Quan Hoạt Động</h3>
+              <span style="font-size:12px; color:var(--text-muted);">Cập nhật mới nhất lúc 17:40</span>
+            </div>
+
+            <!-- Metric Cards -->
+            <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:16px; margin-bottom: 24px;">
+              <div style="background:var(--bg-page); border:1px solid var(--border-color); border-radius:var(--radius-md); padding:18px;">
+                <span style="font-size:12px; color:var(--text-muted); display:block; margin-bottom:4px;">Tổng chi tiêu mua sắm</span>
+                <strong style="font-size:20px; color:var(--primary-dark); font-weight:800;">2.550.000đ</strong>
+              </div>
+              <div style="background:var(--bg-page); border:1px solid var(--border-color); border-radius:var(--radius-md); padding:18px;">
+                <span style="font-size:12px; color:var(--text-muted); display:block; margin-bottom:4px;">Voucher khả dụng</span>
+                <strong style="font-size:20px; color:var(--accent); font-weight:800;">3 Mã ưu đãi</strong>
+              </div>
+              <div style="background:var(--bg-page); border:1px solid var(--border-color); border-radius:var(--radius-md); padding:18px;">
+                <span style="font-size:12px; color:var(--text-muted); display:block; margin-bottom:4px;">Thiết bị đang bảo hành</span>
+                <strong style="font-size:20px; color:#0284c7; font-weight:800;">4 Thiết bị</strong>
+              </div>
+            </div>
+
+            <!-- Recent Orders Snippet -->
+            <div style="margin-bottom: 24px;">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+                <h4 style="font-size:15px; font-weight:700;">Đơn hàng gần đây</h4>
+                <a href="javascript:void(0)" onclick="switchTab('orders')" style="font-size:13px; font-weight:600; color:var(--primary);">
+                  Xem tất cả đơn hàng &rarr;
+                </a>
+              </div>
+              <div id="overviewRecentOrder">
+                <div class="order-card-item">
+                  <div class="order-card-header">
+                    <div class="order-id-date">
+                      <strong>Mã đơn: #SH-20261104-5921</strong>
+                      <span>• Ngày đặt: 04/11/2026</span>
+                    </div>
+                    <span class="order-status-badge shipping">Đang vận chuyển</span>
+                  </div>
+                  <div class="order-card-body">
+                    <div class="order-product-row">
+                      <img src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=600&q=80" alt="Combo">
+                      <div class="order-product-info">
+                        <h5>Combo Phòng Khách Hiện Đại & Sang Trọng</h5>
+                        <p>Số lượng: 1 × 1.490.000đ</p>
+                      </div>
+                      <div style="font-weight: 700; font-size: 14px; color: var(--text-main);">
+                        1.490.000đ
+                      </div>
+                    </div>
+                  </div>
+                  <div class="order-card-footer">
+                    <div class="order-total-text">
+                      Tổng tiền: <strong>1.490.000đ</strong>
+                    </div>
+                    <button class="btn-order-action primary" onclick="openOrderTrackingModal('sh-20261104-5921')">
+                      <i class="bi bi-geo-alt"></i> Theo dõi hành trình
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Banner IoT Recommendation -->
+            <div style="background:linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%); border:1px solid #a7f3d0; border-radius:var(--radius-md); padding:20px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px;">
+              <div>
+                <h4 style="font-size:15px; font-weight:700; color:#064e3b; margin-bottom:4px;">
+                  <i class="bi bi-broadcast"></i> Kết nối thiết bị với IoT Dashboard
+                </h4>
+                <p style="font-size:13px; color:#065f46;">
+                  Xem trực tiếp biểu đồ nhiệt độ phòng khách, độ ẩm phòng ngủ và điều khiển đèn qua Firebase Realtime Database.
+                </p>
+              </div>
+              <a href="Homepage.html" class="btn-primary" style="padding:10px 20px; font-size:13px;">
+                Mở Dashboard Ngay
+              </a>
+            </div>
+          </div>
+
+          <!-- TAB 2: MY ORDERS -->
+          <div class="profile-tab-pane" id="tab-orders">
+            <div class="pane-header">
+              <h3><i class="bi bi-box-seam-fill" style="color:var(--primary);"></i> Lịch Sử Đơn Hàng Của Tôi</h3>
+            </div>
+
+            <!-- Order Status Filter Pills -->
+            <div style="display:flex; gap:8px; margin-bottom:20px; flex-wrap:wrap;">
+              <button class="btn-order-action order-filter-pill active" data-status="all">Tất cả</button>
+              <button class="btn-order-action order-filter-pill" data-status="pending">Chờ xác nhận</button>
+              <button class="btn-order-action order-filter-pill" data-status="shipping">Đang vận chuyển</button>
+              <button class="btn-order-action order-filter-pill" data-status="delivered">Đã giao thành công</button>
+            </div>
+
+            <!-- Orders Container -->
+            <div id="profileOrdersList">
+              <!-- Rendered dynamically by profile.js -->
+            </div>
+          </div>
+
+          <!-- TAB 3: PROFILE INFO -->
+          <div class="profile-tab-pane" id="tab-info">
+            <div class="pane-header">
+              <h3><i class="bi bi-person-lines-fill" style="color:var(--primary);"></i> Thông Tin Tài Khoản</h3>
+            </div>
+
+            <form id="profileInfoForm" style="max-width: 620px;">
+              <div class="form-row-2">
+                <div class="form-group">
+                  <label>Họ và tên *</label>
+                  <input type="text" id="profileInputName" class="form-control" value="Nguyễn Văn An" required>
+                </div>
+                <div class="form-group">
+                  <label>Số điện thoại *</label>
+                  <input type="tel" id="profileInputPhone" class="form-control" value="0912 345 678" required>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label>Địa chỉ Email *</label>
+                <input type="email" id="profileInputEmail" class="form-control" value="nguyenvanan.iot@gmail.com" required>
+              </div>
+
+              <div class="form-row-2">
+                <div class="form-group">
+                  <label>Ngày sinh</label>
+                  <input type="date" id="profileInputBirthday" class="form-control" value="1998-05-15">
+                </div>
+                <div class="form-group">
+                  <label>Giới tính</label>
+                  <select id="profileInputGender" class="form-control">
+                    <option value="male" selected>Nam</option>
+                    <option value="female">Nữ</option>
+                    <option value="other">Khác</option>
+                  </select>
+                </div>
+              </div>
+
+              <div style="margin-top:24px;">
+                <button type="submit" class="btn-primary" style="padding:12px 28px;">
+                  <i class="bi bi-save-fill"></i> Lưu thay đổi
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <!-- TAB 4: ADDRESS BOOK -->
+          <div class="profile-tab-pane" id="tab-addresses">
+            <div class="pane-header">
+              <h3><i class="bi bi-geo-alt-fill" style="color:var(--primary);"></i> Sổ Địa Chỉ Giao Hàng</h3>
+              <button class="btn-primary" onclick="openAddAddressModal()" style="padding:8px 16px; font-size:13px;">
+                <i class="bi bi-plus-lg"></i> Thêm địa chỉ mới
+              </button>
+            </div>
+
+            <div class="address-grid" id="addressBookGrid">
+              <!-- Rendered dynamically by profile.js -->
+            </div>
+          </div>
+
+          <!-- TAB 5: WISHLIST -->
+          <div class="profile-tab-pane" id="tab-wishlist">
+            <div class="pane-header">
+              <h3><i class="bi bi-heart-fill" style="color:var(--danger);"></i> Danh Sách Thiết Bị Yêu Thích</h3>
+            </div>
+
+            <div class="products-grid" id="profileWishlistGrid" style="grid-template-columns: repeat(3, 1fr);">
+              <!-- Rendered dynamically by profile.js -->
+            </div>
+          </div>
+
+          <!-- TAB 6: SECURITY -->
+          <div class="profile-tab-pane" id="tab-security">
+            <div class="pane-header">
+              <h3><i class="bi bi-shield-lock-fill" style="color:var(--primary);"></i> Bảo Mật & Đổi Mật Khẩu</h3>
+            </div>
+
+            <form id="profilePasswordForm" style="max-width: 500px; margin-bottom:32px;">
+              <div class="form-group">
+                <label>Mật khẩu hiện tại *</label>
+                <input type="password" id="currentPassword" class="form-control" placeholder="••••••••" required>
+              </div>
+
+              <div class="form-group">
+                <label>Mật khẩu mới *</label>
+                <input type="password" id="newPassword" class="form-control" placeholder="Ít nhất 8 ký tự" required>
+              </div>
+
+              <div class="form-group">
+                <label>Xác nhận mật khẩu mới *</label>
+                <input type="password" id="confirmPassword" class="form-control" placeholder="Nhập lại mật khẩu mới" required>
+              </div>
+
+              <button type="submit" class="btn-primary" style="padding:12px 24px;">
+                Cập nhật mật khẩu
+              </button>
+            </form>
+
+            <div style="border-top:1px solid var(--border-light); padding-top:24px;">
+              <h4 style="font-size:15px; font-weight:700; margin-bottom:12px;">Xác thực 2 yếu tố (2FA)</h4>
+              <p style="font-size:13px; color:var(--text-muted); margin-bottom:16px;">
+                Bảo vệ tài khoản và hệ thống IoT nhà bạn bằng mã xác thực OTP gửi qua SMS hoặc Google Authenticator khi đăng nhập.
+              </p>
+              <button class="btn-outline-white" style="color:var(--primary-dark); border-color:var(--primary-border); background:var(--primary-subtle);" onclick="showToast('Tính năng xác thực 2FA đã được kích hoạt!', 'success')">
+                <i class="bi bi-shield-check"></i> Kích hoạt bảo vệ 2FA
+              </button>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h3><i class="bi bi-house-gear-fill" style="color:var(--primary-light);"></i> SmartHome Store</h3>
+          <p>Nhà phân phối thiết bị IoT và giải pháp nhà thông minh toàn diện, chính hãng Tuya, Aqara, Sonoff và Philips hàng đầu tại Việt Nam.</p>
+          <div class="footer-contact-item"><i class="bi bi-geo-alt-fill"></i> Số 88 Phố Hoàng Cầu, Đống Đa, Hà Nội</div>
+          <div class="footer-contact-item"><i class="bi bi-telephone-fill"></i> Hotline: 1900 6868 - 0912 345 678</div>
+          <div class="footer-contact-item"><i class="bi bi-envelope-fill"></i> support@smarthome-store.vn</div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Danh Mục Thiết Bị</h4>
+          <ul class="footer-links">
+            <li><a href="catalog.html?category=sensor">Cảm biến thông minh</a></li>
+            <li><a href="catalog.html?category=switch">Công tắc & Ổ cắm</a></li>
+            <li><a href="catalog.html?category=light">Chiếu sáng thông minh</a></li>
+            <li><a href="catalog.html?category=security">Khóa & Camera an ninh</a></li>
+            <li><a href="catalog.html?category=hub">Bộ điều khiển trung tâm</a></li>
+            <li><a href="catalog.html?category=combo">Combo giải pháp trọn gói</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Tài Khoản & Đơn Hàng</h4>
+          <ul class="footer-links">
+            <li><a href="profile.html?tab=overview">Thông tin tài khoản</a></li>
+            <li><a href="profile.html?tab=orders">Tra cứu đơn hàng</a></li>
+            <li><a href="profile.html?tab=wishlist">Danh sách yêu thích</a></li>
+            <li><a href="profile.html?tab=addresses">Sổ địa chỉ nhận hàng</a></li>
+            <li><a href="checkout.html">Giỏ hàng & Thanh toán</a></li>
+            <li><a href="Homepage.html">Hệ thống IoT Dashboard</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Phương Thức Thanh Toán</h4>
+          <p style="font-size:13px; margin-bottom:12px;">Hỗ trợ đa dạng phương thức thanh toán an toàn, bảo mật tiêu chuẩn quốc tế:</p>
+          <div class="payment-badges">
+            <span class="payment-badge-pill"><i class="bi bi-cash-stack"></i> COD Tiền mặt</span>
+            <span class="payment-badge-pill"><i class="bi bi-qr-code"></i> VietQR Banking</span>
+            <span class="payment-badge-pill"><i class="bi bi-credit-card"></i> Visa / Master</span>
+            <span class="payment-badge-pill"><i class="bi bi-wallet2"></i> Ví MoMo / VNPay</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>&copy; 2026 SmartHome Store - Tất cả các quyền được bảo lưu.</div>
+        <div style="display:flex; gap:16px;">
+          <a href="#" style="color:#cbd5e1;">Chính sách bảo hành</a>
+          <a href="#" style="color:#cbd5e1;">Chính sách đổi trả 30 ngày</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ================= SLIDE-IN CART DRAWER ================= -->
+  <div class="cart-drawer-overlay" id="cartOverlay"></div>
+  <aside class="cart-drawer" id="cartDrawer">
+    <div class="drawer-header">
+      <h3><i class="bi bi-cart3" style="color:var(--primary);"></i> Giỏ hàng của bạn</h3>
+      <button class="close-drawer-btn" id="closeDrawerBtn"><i class="bi bi-x-lg"></i></button>
+    </div>
+    <div class="drawer-body" id="drawerItemsList"></div>
+    <div class="drawer-footer">
+      <div class="drawer-subtotal-row">
+        <span>Tạm tính:</span>
+        <strong id="drawerSubtotal">0đ</strong>
+      </div>
+      <div class="drawer-footer-actions">
+        <a href="checkout.html" class="btn-checkout-drawer" id="drawerCheckoutBtn">
+          Tiến hành thanh toán <i class="bi bi-arrow-right"></i>
+        </a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ================= SCRIPTS ================= -->
+  <script src="js/store-data.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/profile.js"></script>
+</body>
+</html>
+

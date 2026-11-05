@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thanh Toán Đơn Hàng - SmartHome Store</title>
+  
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  
+  <!-- Store CSS -->
+  <link rel="stylesheet" href="css/store.css">
+</head>
+<body>
+
+  <!-- ================= TOP ANNOUNCEMENT BAR ================= -->
+  <div class="top-bar">
+    <div class="container">
+      <div class="top-bar-left">
+        <span class="top-bar-badge">Thanh toán an toàn</span>
+        <span>🔒 Mã hóa dữ liệu chuẩn SSL 256-bit | Đổi mới 1-1 trong 30 ngày nếu lỗi kỹ thuật</span>
+      </div>
+      <div class="top-bar-right">
+        <span class="top-bar-link"><i class="bi bi-telephone-fill"></i> Hỗ trợ đặt hàng: 1900 6868</span>
+        <a href="Homepage.html" class="dashboard-btn-pill">
+          <i class="bi bi-speedometer2"></i> Hệ thống IoT Dashboard
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= MAIN HEADER ================= -->
+  <header class="site-header">
+    <div class="header-main">
+      <div class="container">
+        <a href="index.html" class="brand-logo">
+          <div class="brand-icon">
+            <i class="bi bi-house-gear-fill"></i>
+          </div>
+          <div class="brand-text">
+            <h1>SmartHome <span>Store</span></h1>
+            <p>Thiết bị Nhà Thông Minh</p>
+          </div>
+        </a>
+
+        <!-- Header Actions -->
+        <div class="header-actions">
+          <a href="catalog.html" class="action-btn" title="Tiếp tục mua hàng">
+            <i class="bi bi-arrow-left-circle" style="font-size:18px;"></i>
+            <span style="font-size:13px; font-weight:600;">Tiếp tục mua hàng</span>
+          </a>
+
+          <button class="action-btn btn-open-cart" title="Xem giỏ hàng">
+            <div class="action-icon-wrap">
+              <i class="bi bi-cart3"></i>
+              <span class="badge-count cart-count-badge" style="display:none;">0</span>
+            </div>
+            <div class="action-text">
+              <small>Giỏ hàng</small>
+              <strong class="cart-total-header">0đ</strong>
+            </div>
+          </button>
+
+          <!-- User Menu -->
+          <div class="user-menu-wrapper">
+            <div class="user-btn-trigger" id="userMenuBtn">
+              <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=100&q=80" alt="Avatar" class="user-avatar-sm">
+              <i class="bi bi-chevron-down" style="font-size:12px; color:var(--text-muted);"></i>
+            </div>
+            <div class="user-dropdown-menu" id="userDropdown">
+              <div class="dropdown-user-header">
+                <strong>Nguyễn Văn An</strong>
+                <span>Thành viên Vàng</span>
+              </div>
+              <a href="profile.html?tab=overview" class="dropdown-item">
+                <i class="bi bi-person-circle"></i> Tài khoản của tôi
+              </a>
+              <a href="profile.html?tab=orders" class="dropdown-item">
+                <i class="bi bi-box-seam"></i> Quản lý đơn hàng
+              </a>
+              <a href="profile.html?tab=addresses" class="dropdown-item">
+                <i class="bi bi-geo-alt"></i> Sổ địa chỉ nhận
+              </a>
+              <a href="profile.html?tab=wishlist" class="dropdown-item">
+                <i class="bi bi-heart"></i> Danh sách yêu thích
+              </a>
+              <a href="Homepage.html" class="dropdown-item" style="color:var(--primary); font-weight:600; border-top:1px solid var(--border-light); margin-top:4px;">
+                <i class="bi bi-cpu" style="color:var(--primary);"></i> Vào IoT Dashboard
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= CHECKOUT CONTENT ================= -->
+  <main class="checkout-page-layout">
+    <div class="container">
+      
+      <!-- Stepper -->
+      <div class="checkout-stepper">
+        <div class="step-item active">
+          <div class="step-number">1</div>
+          <span>Thông tin giao hàng</span>
+        </div>
+        <div class="step-divider"></div>
+        <div class="step-item active">
+          <div class="step-number">2</div>
+          <span>Vận chuyển & Thanh toán</span>
+        </div>
+        <div class="step-divider"></div>
+        <div class="step-item">
+          <div class="step-number">3</div>
+          <span>Xác nhận đơn hàng</span>
+        </div>
+      </div>
+
+      <!-- Empty Cart Notice (hidden if items present) -->
+      <div id="checkoutEmptyCartNotice" style="display:none; text-align:center; padding:60px 20px; background:#fff; border-radius:var(--radius-xl); border:1px solid var(--border-color); max-width:640px; margin:0 auto;">
+        <i class="bi bi-cart-x" style="font-size:56px; color:var(--text-subtle); display:block; margin-bottom:16px;"></i>
+        <h2 style="font-size:22px; font-weight:800; margin-bottom:8px;">Giỏ hàng của bạn đang trống</h2>
+        <p style="font-size:14px; color:var(--text-muted); margin-bottom:24px;">Bạn chưa chọn sản phẩm nào để thanh toán. Vui lòng thêm sản phẩm vào giỏ hàng trước nhé!</p>
+        <div style="display:flex; gap:12px; justify-content:center;">
+          <a href="catalog.html" class="btn-primary">
+            <i class="bi bi-shop"></i> Mua sắm sản phẩm
+          </a>
+          <button class="btn-outline-white" style="color:var(--text-main); border-color:var(--border-color);" onclick="CartManager.addItem('sh-prod-001'); CartManager.addItem('sh-prod-005'); window.location.reload();">
+            <i class="bi bi-plus-circle"></i> Thêm sản phẩm mẫu để thử
+          </button>
+        </div>
+      </div>
+
+      <!-- Checkout Main Grid -->
+      <div class="checkout-grid" id="checkoutMainContent">
+        
+        <!-- LEFT: FORM DATA -->
+        <div class="checkout-forms">
+          
+          <!-- 1. Customer Information -->
+          <div class="checkout-card">
+            <h3><i class="bi bi-person-fill" style="color:var(--primary);"></i> 1. Thông Tin Người Nhận Hàng</h3>
+            
+            <div class="form-row-2">
+              <div class="form-group">
+                <label>Họ và tên người nhận *</label>
+                <input type="text" id="checkoutFullName" class="form-control" placeholder="Ví dụ: Nguyễn Văn An" value="Nguyễn Văn An" required>
+              </div>
+              <div class="form-group">
+                <label>Số điện thoại liên hệ *</label>
+                <input type="tel" id="checkoutPhone" class="form-control" placeholder="Ví dụ: 0912 345 678" value="0912 345 678" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Địa chỉ Email (Nhận hóa đơn điện tử & mã theo dõi)</label>
+              <input type="email" id="checkoutEmail" class="form-control" placeholder="nguyenvanan.iot@gmail.com" value="nguyenvanan.iot@gmail.com">
+            </div>
+          </div>
+
+          <!-- 2. Delivery Address -->
+          <div class="checkout-card">
+            <h3><i class="bi bi-geo-alt-fill" style="color:var(--primary);"></i> 2. Địa Chỉ Giao Hàng</h3>
+
+            <div class="form-row-2">
+              <div class="form-group">
+                <label>Tỉnh / Thành phố *</label>
+                <select id="checkoutCity" class="form-control" required>
+                  <option value="Hà Nội" selected>Hà Nội</option>
+                  <option value="TP. Hồ Chí Minh">TP. Hồ Chí Minh</option>
+                  <option value="Đà Nẵng">Đà Nẵng</option>
+                  <option value="Hải Phòng">Hải Phòng</option>
+                  <option value="Cần Thơ">Cần Thơ</option>
+                  <option value="Bình Dương">Bình Dương</option>
+                  <option value="Đồng Nai">Đồng Nai</option>
+                  <option value="Khác">Tỉnh thành khác</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Quận / Huyện *</label>
+                <input type="text" id="checkoutDistrict" class="form-control" placeholder="Quận Đống Đa" value="Quận Đống Đa">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Địa chỉ chi tiết (Số nhà, ngõ ngách, tên đường, phường/xã) *</label>
+              <input type="text" id="checkoutAddress" class="form-control" placeholder="Số 88 Phố Hoàng Cầu, Phường Ô Chợ Dừa" value="Số 88 Phố Hoàng Cầu, Phường Ô Chợ Dừa" required>
+            </div>
+
+            <div class="form-group" style="margin-bottom:0;">
+              <label>Ghi chú cho shipper (Tùy chọn)</label>
+              <textarea id="checkoutNote" class="form-control" rows="2" placeholder="Ví dụ: Giao vào giờ hành chính, gọi điện trước khi giao hàng 15 phút..."></textarea>
+            </div>
+          </div>
+
+          <!-- 3. Shipping Method -->
+          <div class="checkout-card">
+            <h3><i class="bi bi-truck" style="color:var(--primary);"></i> 3. Phương Thức Vận Chuyển</h3>
+
+            <div class="option-select-list">
+              <label class="option-box-label shipping-option-label selected">
+                <input type="radio" name="shippingMethod" value="standard" checked>
+                <div class="option-box-info">
+                  <strong>Giao Hàng Tiêu Chuẩn (Toàn quốc)</strong>
+                  <span>Nhận hàng sau 2 - 3 ngày làm việc (Miễn phí cho đơn từ 500.000đ)</span>
+                </div>
+                <div class="option-box-price">25.000đ</div>
+              </label>
+
+              <label class="option-box-label shipping-option-label">
+                <input type="radio" name="shippingMethod" value="express">
+                <div class="option-box-info">
+                  <strong>Giao Hỏa Tốc Siêu Tốc (2 - 4 Giờ)</strong>
+                  <span>Áp dụng khu vực nội thành Hà Nội & TP. Hồ Chí Minh</span>
+                </div>
+                <div class="option-box-price">45.000đ</div>
+              </label>
+
+              <label class="option-box-label shipping-option-label">
+                <input type="radio" name="shippingMethod" value="store">
+                <div class="option-box-info">
+                  <strong>Nhận Tại Showroom SmartHome</strong>
+                  <span>Số 88 Phố Hoàng Cầu, Đống Đa, Hà Nội</span>
+                </div>
+                <div class="option-box-price" style="color:#16a34a;">Miễn phí</div>
+              </label>
+            </div>
+          </div>
+
+          <!-- 4. Payment Method -->
+          <div class="checkout-card">
+            <h3><i class="bi bi-credit-card-fill" style="color:var(--primary);"></i> 4. Phương Thức Thanh Toán</h3>
+
+            <div class="option-select-list">
+              <label class="option-box-label payment-option-label selected">
+                <input type="radio" name="paymentMethod" value="cod" checked>
+                <div class="option-box-info">
+                  <strong>COD - Thanh Toán Khi Nhận Hàng (Tiền Mặt)</strong>
+                  <span>Kiểm tra hàng trước khi thanh toán cho nhân viên giao hàng</span>
+                </div>
+                <i class="bi bi-cash-stack" style="font-size:22px; color:var(--primary);"></i>
+              </label>
+
+              <label class="option-box-label payment-option-label">
+                <input type="radio" name="paymentMethod" value="bank">
+                <div class="option-box-info">
+                  <strong>Chuyển Khoản Ngân Hàng Tức Thì (VietQR)</strong>
+                  <span>Quét mã QR tự động điền số tài khoản, số tiền và nội dung đơn</span>
+                </div>
+                <i class="bi bi-qr-code-scan" style="font-size:22px; color:var(--primary);"></i>
+              </label>
+
+              <!-- Dynamic VietQR Box -->
+              <div class="qr-payment-box" id="vietQrPaymentBox">
+                <h4 style="font-size:15px; font-weight:700; color:var(--primary-dark); margin-bottom:8px;">
+                  Mã VietQR Thanh Toán Đơn Hàng
+                </h4>
+                <img src="" id="vietQrImage" alt="VietQR Banking Code">
+                <p class="qr-info-p">
+                  Số tiền cần chuyển: <strong id="qrAmountText">0đ</strong><br>
+                  Ngân hàng: <strong>MB Bank (Ngân hàng Quân Đội)</strong> - STK: <strong>0912345678</strong><br>
+                  Chủ TK: <strong>SMARTHOME STORE VIETNAM</strong>
+                </p>
+                <span style="display:inline-block; margin-top:8px; font-size:11px; color:#15803d; background:#dcfce7; padding:2px 8px; border-radius:4px;">
+                  Hệ thống tự động kích hoạt đơn hàng trong 1-2 phút sau khi nhận thanh toán
+                </span>
+              </div>
+
+              <label class="option-box-label payment-option-label">
+                <input type="radio" name="paymentMethod" value="card">
+                <div class="option-box-info">
+                  <strong>Thẻ Tín Dụng / Ghi Nợ Quốc Tế (Visa, Master, JCB)</strong>
+                  <span>Cổng thanh toán bảo mật 3D-Secure quốc tế</span>
+                </div>
+                <i class="bi bi-credit-card" style="font-size:22px; color:var(--primary);"></i>
+              </label>
+
+              <!-- Mock Credit Card Form -->
+              <div id="creditCardBox" style="display:none; background:var(--bg-page); border-radius:var(--radius-md); padding:18px; margin-top:12px;">
+                <div class="form-group">
+                  <label>Số thẻ trên mặt trước</label>
+                  <input type="text" class="form-control" placeholder="4111 2222 3333 4444" maxlength="19">
+                </div>
+                <div class="form-row-2" style="margin-bottom:0;">
+                  <div class="form-group" style="margin-bottom:0;">
+                    <label>Ngày hết hạn (MM/YY)</label>
+                    <input type="text" class="form-control" placeholder="12/28" maxlength="5">
+                  </div>
+                  <div class="form-group" style="margin-bottom:0;">
+                    <label>Mã bảo mật CVV</label>
+                    <input type="password" class="form-control" placeholder="•••" maxlength="4">
+                  </div>
+                </div>
+              </div>
+
+              <label class="option-box-label payment-option-label">
+                <input type="radio" name="paymentMethod" value="momo">
+                <div class="option-box-info">
+                  <strong>Ví Điện Tử MoMo / VNPay</strong>
+                  <span>Thanh toán tiện lợi qua ứng dụng ví điện tử</span>
+                </div>
+                <i class="bi bi-wallet2" style="font-size:22px; color:var(--primary);"></i>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT: ORDER SUMMARY SIDEBAR -->
+        <aside class="checkout-summary-wrap">
+          <div class="checkout-summary-card">
+            <h3 style="font-size:18px; font-weight:800; margin-bottom:16px; display:flex; justify-content:space-between; align-items:center;">
+              <span>Tóm Tắt Đơn Hàng</span>
+              <span class="cart-count-badge" style="position:static; font-size:12px; width:22px; height:22px;">0</span>
+            </h3>
+
+            <!-- Cart Items Summary -->
+            <div class="summary-items-list" id="checkoutSummaryItems">
+              <!-- Rendered dynamically -->
+            </div>
+
+            <!-- Coupon Box -->
+            <div style="margin-bottom:16px;">
+              <label style="font-size:12px; font-weight:600; color:var(--text-muted); display:block; margin-bottom:6px;">
+                Mã giảm giá (Thử: <strong style="color:var(--primary);">SMART10</strong> hoặc <strong style="color:var(--primary);">FREESHIP</strong>)
+              </label>
+              <div class="coupon-input-wrap">
+                <input type="text" id="couponCodeInput" placeholder="Nhập mã ưu đãi...">
+                <button type="button" class="btn-apply-coupon" id="btnApplyCoupon">Áp Dụng</button>
+              </div>
+            </div>
+
+            <!-- Price Breakdown -->
+            <div class="price-breakdown">
+              <div class="breakdown-row">
+                <span>Tạm tính tiền hàng:</span>
+                <strong id="summarySubtotal" style="color:var(--text-main);">0đ</strong>
+              </div>
+              <div class="breakdown-row">
+                <span>Phí vận chuyển:</span>
+                <strong id="summaryShipping" style="color:var(--text-main);">25.000đ</strong>
+              </div>
+              <div class="breakdown-row discount" id="summaryDiscountRow" style="display:none;">
+                <span>Giảm giá coupon:</span>
+                <strong id="summaryDiscount">-0đ</strong>
+              </div>
+            </div>
+
+            <!-- Grand Total -->
+            <div class="breakdown-total">
+              <span>Tổng thanh toán:</span>
+              <strong id="summaryGrandTotal">0đ</strong>
+            </div>
+
+            <!-- Place Order Button -->
+            <button type="button" class="btn-place-order" id="btnPlaceOrder">
+              <i class="bi bi-shield-check"></i> Đặt Hàng Ngay
+            </button>
+
+            <!-- Guarantees -->
+            <div style="margin-top:20px; border-top:1px solid var(--border-light); padding-top:16px; font-size:12px; color:var(--text-muted); display:flex; flex-direction:column; gap:8px;">
+              <div style="display:flex; align-items:center; gap:8px;">
+                <i class="bi bi-shield-fill-check" style="color:var(--primary); font-size:16px;"></i>
+                <span>Bảo hành chính hãng 24 tháng 1 đổi 1</span>
+              </div>
+              <div style="display:flex; align-items:center; gap:8px;">
+                <i class="bi bi-arrow-clockwise" style="color:var(--primary); font-size:16px;"></i>
+                <span>Miễn phí đổi trả trong 30 ngày nếu không hài lòng</span>
+              </div>
+              <div style="display:flex; align-items:center; gap:8px;">
+                <i class="bi bi-headset" style="color:var(--primary); font-size:16px;"></i>
+                <span>Hỗ trợ kỹ thuật cấu hình thiết bị miễn phí</span>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </main>
+
+  <!-- ================= SLIDE-IN CART DRAWER ================= -->
+  <div class="cart-drawer-overlay" id="cartOverlay"></div>
+  <aside class="cart-drawer" id="cartDrawer">
+    <div class="drawer-header">
+      <h3><i class="bi bi-cart3" style="color:var(--primary);"></i> Giỏ hàng của bạn</h3>
+      <button class="close-drawer-btn" id="closeDrawerBtn"><i class="bi bi-x-lg"></i></button>
+    </div>
+    <div class="drawer-body" id="drawerItemsList"></div>
+    <div class="drawer-footer">
+      <div class="drawer-subtotal-row">
+        <span>Tạm tính:</span>
+        <strong id="drawerSubtotal">0đ</strong>
+      </div>
+      <div class="drawer-footer-actions">
+        <a href="checkout.html" class="btn-checkout-drawer" id="drawerCheckoutBtn">
+          Tiến hành thanh toán <i class="bi bi-arrow-right"></i>
+        </a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ================= SCRIPTS ================= -->
+  <script src="js/store-data.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/checkout.js"></script>
+</body>
+</html>
+

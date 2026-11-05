@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Danh Mục Sản Phẩm - SmartHome Store</title>
+  
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  
+  <!-- Store CSS -->
+  <link rel="stylesheet" href="css/store.css">
+</head>
+<body>
+
+  <!-- ================= TOP ANNOUNCEMENT BAR ================= -->
+  <div class="top-bar">
+    <div class="container">
+      <div class="top-bar-left">
+        <span class="top-bar-badge">Khuyến mãi</span>
+        <span>🔥 Nhập mã <strong>SMART10</strong> giảm ngay 10% | Miễn phí vận chuyển cho đơn từ 500k</span>
+      </div>
+      <div class="top-bar-right">
+        <span class="top-bar-link"><i class="bi bi-telephone-fill"></i> Hotline: 1900 6868</span>
+        <a href="Homepage.html" class="dashboard-btn-pill">
+          <i class="bi bi-speedometer2"></i> Hệ thống IoT Dashboard
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= MAIN HEADER ================= -->
+  <header class="site-header">
+    <div class="header-main">
+      <div class="container">
+        <!-- Logo -->
+        <a href="index.html" class="brand-logo">
+          <div class="brand-icon">
+            <i class="bi bi-house-gear-fill"></i>
+          </div>
+          <div class="brand-text">
+            <h1>SmartHome <span>Store</span></h1>
+            <p>Thiết bị Nhà Thông Minh</p>
+          </div>
+        </a>
+
+        <!-- Search Bar -->
+        <div class="header-search">
+          <div class="search-input-wrap">
+            <i class="bi bi-search"></i>
+            <input type="text" id="headerSearchInput" placeholder="Tìm kiếm cảm biến, công tắc, camera, khóa thông minh..." autocomplete="off">
+            <button class="search-btn" onclick="window.location.href='catalog.html?search=' + encodeURIComponent(document.getElementById('headerSearchInput').value)">
+              Tìm kiếm
+            </button>
+          </div>
+          <div class="search-results-dropdown" id="headerSearchDropdown"></div>
+        </div>
+
+        <!-- Header Actions -->
+        <div class="header-actions">
+          <a href="profile.html?tab=wishlist" class="action-btn" title="Danh sách yêu thích">
+            <div class="action-icon-wrap">
+              <i class="bi bi-heart"></i>
+              <span class="badge-count wishlist-count-badge" style="display:none;">0</span>
+            </div>
+            <div class="action-text d-none-mobile">
+              <small>Yêu thích</small>
+              <strong>Sản phẩm</strong>
+            </div>
+          </a>
+
+          <button class="action-btn btn-open-cart" title="Xem giỏ hàng">
+            <div class="action-icon-wrap">
+              <i class="bi bi-cart3"></i>
+              <span class="badge-count cart-count-badge" style="display:none;">0</span>
+            </div>
+            <div class="action-text">
+              <small>Giỏ hàng</small>
+              <strong class="cart-total-header">0đ</strong>
+            </div>
+          </button>
+
+          <!-- User Menu -->
+          <div class="user-menu-wrapper">
+            <div class="user-btn-trigger" id="userMenuBtn">
+              <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=100&q=80" alt="Avatar" class="user-avatar-sm">
+              <i class="bi bi-chevron-down" style="font-size:12px; color:var(--text-muted);"></i>
+            </div>
+            <div class="user-dropdown-menu" id="userDropdown">
+              <div class="dropdown-user-header">
+                <strong>Nguyễn Văn An</strong>
+                <span>Thành viên Vàng</span>
+              </div>
+              <a href="profile.html?tab=overview" class="dropdown-item">
+                <i class="bi bi-person-circle"></i> Tài khoản của tôi
+              </a>
+              <a href="profile.html?tab=orders" class="dropdown-item">
+                <i class="bi bi-box-seam"></i> Quản lý đơn hàng
+              </a>
+              <a href="profile.html?tab=addresses" class="dropdown-item">
+                <i class="bi bi-geo-alt"></i> Sổ địa chỉ nhận
+              </a>
+              <a href="profile.html?tab=wishlist" class="dropdown-item">
+                <i class="bi bi-heart"></i> Danh sách yêu thích
+              </a>
+              <a href="profile.html?tab=security" class="dropdown-item">
+                <i class="bi bi-shield-lock"></i> Đổi mật khẩu
+              </a>
+              <a href="Homepage.html" class="dropdown-item" style="color:var(--primary); font-weight:600; border-top:1px solid var(--border-light); margin-top:4px;">
+                <i class="bi bi-cpu" style="color:var(--primary);"></i> Vào IoT Dashboard
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Secondary Nav Bar -->
+    <nav class="header-nav">
+      <div class="container">
+        <ul class="nav-links">
+          <li class="nav-item"><a href="index.html"><i class="bi bi-house-door"></i> Trang chủ</a></li>
+          <li class="nav-item active"><a href="catalog.html"><i class="bi bi-grid"></i> Tất cả sản phẩm</a></li>
+          <li class="nav-item"><a href="catalog.html?category=sensor"><i class="bi bi-broadcast-pin"></i> Cảm biến thông minh</a></li>
+          <li class="nav-item"><a href="catalog.html?category=switch"><i class="bi bi-toggle-on"></i> Công tắc & Ổ cắm</a></li>
+          <li class="nav-item"><a href="catalog.html?category=light"><i class="bi bi-lightbulb"></i> Chiếu sáng RGB</a></li>
+          <li class="nav-item"><a href="catalog.html?category=security"><i class="bi bi-shield-check"></i> Khóa & Camera AI</a></li>
+          <li class="nav-item"><a href="catalog.html?category=combo"><i class="bi bi-box-seam"></i> Combo Tiết Kiệm <span class="badge-hot">HOT</span></a></li>
+          <li class="nav-item" style="margin-left:auto;"><a href="checkout.html"><i class="bi bi-credit-card"></i> Thanh toán đơn</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <!-- ================= CATALOG CONTENT ================= -->
+  <main class="catalog-page-layout">
+    <div class="container">
+      
+      <!-- Breadcrumbs -->
+      <div class="catalog-breadcrumb">
+        <a href="index.html"><i class="bi bi-house-door-fill"></i> Trang chủ</a>
+        <i class="bi bi-chevron-right" style="font-size:10px;"></i>
+        <span>Danh mục sản phẩm</span>
+      </div>
+
+      <div class="catalog-main-grid">
+        
+        <!-- SIDEBAR FILTERS -->
+        <aside class="catalog-sidebar">
+          
+          <!-- Category Filter -->
+          <div class="filter-block">
+            <h4 class="filter-title">
+              <span><i class="bi bi-tags-fill" style="color:var(--primary);"></i> Danh mục</span>
+            </h4>
+            <ul class="filter-list">
+              <li>
+                <label class="filter-item-label">
+                  <input type="radio" name="categoryFilter" value="all" checked>
+                  <span>Tất cả sản phẩm</span>
+                  <span class="filter-count">16</span>
+                </label>
+              </li>
+              <li>
+                <label class="filter-item-label">
+                  <input type="radio" name="categoryFilter" value="sensor">
+                  <span>Cảm biến thông minh</span>
+                  <span class="filter-count">5</span>
+                </label>
+              </li>
+              <li>
+                <label class="filter-item-label">
+                  <input type="radio" name="categoryFilter" value="switch">
+                  <span>Công tắc & Ổ cắm</span>
+                  <span class="filter-count">3</span>
+                </label>
+              </li>
+              <li>
+                <label class="filter-item-label">
+                  <input type="radio" name="categoryFilter" value="light">
+                  <span>Chiếu sáng RGB</span>
+                  <span class="filter-count">3</span>
+                </label>
+              </li>
+              <li>
+                <label class="filter-item-label">
+                  <input type="radio" name="categoryFilter" value="security">
+                  <span>An ninh & Khóa FaceID</span>
+                  <span class="filter-count">3</span>
+                </label>
+              </li>
+              <li>
+                <label class="filter-item-label">
+                  <input type="radio" name="categoryFilter" value="hub">
+                  <span>Bộ điều khiển & Hub</span>
+                  <span class="filter-count">2</span>
+                </label>
+              </li>
+              <li>
+                <label class="filter-item-label">
+                  <input type="radio" name="categoryFilter" value="combo">
+                  <span>Combo Giải pháp</span>
+                  <span class="filter-count">2</span>
+                </label>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Price Range Filter -->
+          <div class="filter-block">
+            <h4 class="filter-title">
+              <span><i class="bi bi-cash-stack" style="color:var(--primary);"></i> Khoảng giá</span>
+            </h4>
+            <ul class="filter-list">
+              <li>
+                <label class="filter-item-label">
+                  <input type="radio" name="priceFilter" value="all" checked>
+                  <span>Tất cả mức giá</span>
+                </label>
+              </li>
+              <li>
+                <label class="filter-item-label">
+                  <input type="radio" name="priceFilter" value="under300">
+                  <span>Dưới 300.000đ</span>
+                </label>
+              </li>
+              <li>
+                <label class="filter-item-label">
+                  <input type="radio" name="priceFilter" value="300to700">
+                  <span>300.000đ - 700.000đ</span>
+                </label>
+              </li>
+              <li>
+                <label class="filter-item-label">
+                  <input type="radio" name="priceFilter" value="700to1500">
+                  <span>700.000đ - 1.500.000đ</span>
+                </label>
+              </li>
+              <li>
+                <label class="filter-item-label">
+                  <input type="radio" name="priceFilter" value="over1500">
+                  <span>Trên 1.500.000đ</span>
+                </label>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Protocol Filter -->
+          <div class="filter-block">
+            <h4 class="filter-title">
+              <span><i class="bi bi-wifi" style="color:var(--primary);"></i> Chuẩn kết nối</span>
+            </h4>
+            <ul class="filter-list">
+              <li>
+                <label class="filter-item-label">
+                  <input type="checkbox" name="protocolFilter" value="Zigbee">
+                  <span>Zigbee 3.0 (Độ trễ thấp)</span>
+                </label>
+              </li>
+              <li>
+                <label class="filter-item-label">
+                  <input type="checkbox" name="protocolFilter" value="Wi-Fi">
+                  <span>Wi-Fi 2.4GHz (Trực tiếp)</span>
+                </label>
+              </li>
+              <li>
+                <label class="filter-item-label">
+                  <input type="checkbox" name="protocolFilter" value="Bluetooth">
+                  <span>Bluetooth Mesh</span>
+                </label>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Special Status -->
+          <div class="filter-block">
+            <h4 class="filter-title">
+              <span><i class="bi bi-sliders" style="color:var(--primary);"></i> Khuyến mãi & Kho</span>
+            </h4>
+            <ul class="filter-list">
+              <li>
+                <label class="filter-item-label">
+                  <input type="checkbox" id="filterOnSale">
+                  <span>Đang giảm giá <span class="badge-tag sale" style="font-size:9px;">HOT</span></span>
+                </label>
+              </li>
+            </ul>
+            <button class="btn-reset-filters" id="btnResetFilters">
+              <i class="bi bi-arrow-counterclockwise"></i> Xóa tất cả bộ lọc
+            </button>
+          </div>
+        </aside>
+
+        <!-- MAIN CATALOG DISPLAY -->
+        <section class="catalog-products-section">
+          
+          <!-- Toolbar -->
+          <div class="catalog-toolbar">
+            <div class="toolbar-left">
+              <div class="search-input-wrap" style="padding: 2px 12px; max-width: 260px;">
+                <i class="bi bi-search" style="font-size:14px;"></i>
+                <input type="text" id="catalogSearchInput" placeholder="Lọc theo tên..." style="font-size:13px;">
+              </div>
+              <span class="results-count-text" id="resultsCount">Hiển thị <strong>16</strong> sản phẩm</span>
+            </div>
+
+            <div class="toolbar-right">
+              <div class="sort-select-wrap">
+                <span>Sắp xếp:</span>
+                <select class="sort-select" id="catalogSortSelect">
+                  <option value="popular">Bán chạy nhất</option>
+                  <option value="newest">Hàng mới về</option>
+                  <option value="price-asc">Giá: Thấp &rarr; Cao</option>
+                  <option value="price-desc">Giá: Cao &rarr; Thấp</option>
+                  <option value="rating">Đánh giá cao nhất</option>
+                </select>
+              </div>
+
+              <div class="view-mode-btns">
+                <button class="btn-view-mode active" id="btnViewGrid" title="Xem dạng lưới"><i class="bi bi-grid-3x3-gap-fill"></i></button>
+                <button class="btn-view-mode" id="btnViewList" title="Xem dạng danh sách"><i class="bi bi-list-ul"></i></button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Products Grid -->
+          <div class="products-grid" id="catalogProductsGrid" style="grid-template-columns: repeat(3, 1fr);">
+            <!-- Rendered by catalog.js -->
+          </div>
+
+          <!-- Pagination -->
+          <div class="pagination-wrap" id="catalogPagination">
+            <!-- Rendered by catalog.js -->
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h3><i class="bi bi-house-gear-fill" style="color:var(--primary-light);"></i> SmartHome Store</h3>
+          <p>Nhà phân phối thiết bị IoT và giải pháp nhà thông minh toàn diện, chính hãng Tuya, Aqara, Sonoff và Philips hàng đầu tại Việt Nam.</p>
+          <div class="footer-contact-item"><i class="bi bi-geo-alt-fill"></i> Số 88 Phố Hoàng Cầu, Đống Đa, Hà Nội</div>
+          <div class="footer-contact-item"><i class="bi bi-telephone-fill"></i> Hotline: 1900 6868 - 0912 345 678</div>
+          <div class="footer-contact-item"><i class="bi bi-envelope-fill"></i> support@smarthome-store.vn</div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Danh Mục Thiết Bị</h4>
+          <ul class="footer-links">
+            <li><a href="catalog.html?category=sensor">Cảm biến thông minh</a></li>
+            <li><a href="catalog.html?category=switch">Công tắc & Ổ cắm</a></li>
+            <li><a href="catalog.html?category=light">Chiếu sáng thông minh</a></li>
+            <li><a href="catalog.html?category=security">Khóa & Camera an ninh</a></li>
+            <li><a href="catalog.html?category=hub">Bộ điều khiển trung tâm</a></li>
+            <li><a href="catalog.html?category=combo">Combo giải pháp trọn gói</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Tài Khoản & Đơn Hàng</h4>
+          <ul class="footer-links">
+            <li><a href="profile.html?tab=overview">Thông tin tài khoản</a></li>
+            <li><a href="profile.html?tab=orders">Tra cứu đơn hàng</a></li>
+            <li><a href="profile.html?tab=wishlist">Danh sách yêu thích</a></li>
+            <li><a href="profile.html?tab=addresses">Sổ địa chỉ nhận hàng</a></li>
+            <li><a href="checkout.html">Giỏ hàng & Thanh toán</a></li>
+            <li><a href="Homepage.html">Hệ thống IoT Dashboard</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Phương Thức Thanh Toán</h4>
+          <p style="font-size:13px; margin-bottom:12px;">Hỗ trợ đa dạng phương thức thanh toán an toàn, bảo mật tiêu chuẩn quốc tế:</p>
+          <div class="payment-badges">
+            <span class="payment-badge-pill"><i class="bi bi-cash-stack"></i> COD Tiền mặt</span>
+            <span class="payment-badge-pill"><i class="bi bi-qr-code"></i> VietQR Banking</span>
+            <span class="payment-badge-pill"><i class="bi bi-credit-card"></i> Visa / Master</span>
+            <span class="payment-badge-pill"><i class="bi bi-wallet2"></i> Ví MoMo / VNPay</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>&copy; 2026 SmartHome Store - Tất cả các quyền được bảo lưu.</div>
+        <div style="display:flex; gap:16px;">
+          <a href="#" style="color:#cbd5e1;">Chính sách bảo hành</a>
+          <a href="#" style="color:#cbd5e1;">Chính sách đổi trả 30 ngày</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ================= SLIDE-IN CART DRAWER ================= -->
+  <div class="cart-drawer-overlay" id="cartOverlay"></div>
+  <aside class="cart-drawer" id="cartDrawer">
+    <div class="drawer-header">
+      <h3><i class="bi bi-cart3" style="color:var(--primary);"></i> Giỏ hàng của bạn</h3>
+      <button class="close-drawer-btn" id="closeDrawerBtn"><i class="bi bi-x-lg"></i></button>
+    </div>
+    <div class="drawer-body" id="drawerItemsList"></div>
+    <div class="drawer-footer">
+      <div class="drawer-subtotal-row">
+        <span>Tạm tính:</span>
+        <strong id="drawerSubtotal">0đ</strong>
+      </div>
+      <div class="drawer-footer-actions">
+        <a href="checkout.html" class="btn-checkout-drawer" id="drawerCheckoutBtn">
+          Tiến hành thanh toán <i class="bi bi-arrow-right"></i>
+        </a>
+        <a href="catalog.html" class="btn-view-cart" onclick="CartManager.closeDrawer()">
+          Tiếp tục xem sản phẩm
+        </a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ================= SCRIPTS ================= -->
+  <script src="js/store-data.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/catalog.js"></script>
+</body>
+</html>
+

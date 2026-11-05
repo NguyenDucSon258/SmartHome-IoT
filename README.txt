@@ -1,23 +1,26 @@
-# SmartHome-Web
+# SmartHome Web & Store
 
-Website dashboard IoT nhà thông minh.
+Hệ thống tích hợp Website Bán Hàng Thiết Bị Nhà Thông Minh (SmartHome Store) & Dashboard Điều Khiển IoT.
 
-## Chạy trên VS Code
+## 1. Cấu trúc các trang chính
 
-1. Mở thư mục `SmartHome-Web` bằng VS Code.
-2. Cài extension **Live Server**.
-3. Chuột phải vào `index.html` -> **Open with Live Server**.
-4. Mở `js/app.js` và thay Firebase Config bằng cấu hình Web App của Firebase.
+- `index.html`: Trang chủ bán hàng (Homepage Store) - Giới thiệu thiết bị, Flash Sale, Ngữ cảnh tự động hóa, Đánh giá, Giỏ hàng trượt (Mini-cart Drawer).
+- `catalog.html`: Danh mục & Tìm kiếm sản phẩm (Catalog) - Bộ lọc đa tiêu chí (danh mục, khoảng giá, chuẩn kết nối Zigbee/Wi-Fi, khuyến mãi), xem nhanh (Quick View Modal), phân trang.
+- `checkout.html`: Trang thanh toán đơn hàng (Checkout) - Nhập thông tin giao hàng, chọn đơn vị vận chuyển, thanh toán COD, Thẻ quốc tế, hoặc Quét mã VietQR động tự động sinh theo số tiền đơn hàng, áp dụng coupon giảm giá (`SMART10`, `FREESHIP`, `WELCOME50`).
+- `profile.html`: Trang quản lý tài khoản & đơn hàng (User Profile) - Xem lịch sử đơn, tiến trình theo dõi giao hàng (Tracking Timeline), sổ địa chỉ, danh sách yêu thích (Wishlist), đổi mật khẩu.
+- `Homepage.html`: Bảng điều khiển IoT (IoT Dashboard) - Giám sát cảm biến phòng khách, phòng ngủ & điều khiển thiết bị qua Firebase.
+- `Livingroom.html` & `Bedroom.html`: Chi tiết từng phòng trong hệ thống IoT.
 
-## Firebase Realtime Database
+## 2. Hướng dẫn chạy trên VS Code
 
-Code đang dùng các node:
+1. Mở thư mục dự án bằng VS Code.
+2. Cài extension **Live Server** (Ritwick Dey).
+3. Chuột phải vào `index.html` -> Chọn **Open with Live Server**.
+4. Website sẽ tự động mở trên trình duyệt tại cổng mặc định `http://127.0.0.1:5500`.
 
-- `sensors/current`
-- `sensors/history`
-- `devices`
-- `activities`
+## 3. Mã giảm giá thử nghiệm trong trang Checkout
 
-## Lưu ý
-
-File `js/app.js` đã có sẵn phần kết nối Firebase Realtime Database nhưng đang dùng placeholder `YOUR_...`.
+- `SMART10`: Giảm 10% cho đơn từ 300.000đ
+- `WELCOME50`: Giảm trực tiếp 50.000đ cho khách hàng mới
+- `FREESHIP`: Miễn phí vận chuyển toàn quốc
+- `VIPPRO`: Giảm 15% cho đơn từ 1.500.000đ

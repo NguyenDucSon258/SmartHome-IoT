@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SmartHome Store - Cửa hàng Thiết bị Nhà Thông Minh Chính Hãng</title>
+  
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  
+  <!-- Store CSS -->
+  <link rel="stylesheet" href="css/store.css">
+</head>
+<body>
+
+  <!-- ================= TOP ANNOUNCEMENT BAR ================= -->
+  <div class="top-bar">
+    <div class="container">
+      <div class="top-bar-left">
+        <span class="top-bar-badge">Khuyến mãi</span>
+        <span>🔥 Nhập mã <strong>SMART10</strong> giảm ngay 10% | Miễn phí vận chuyển toàn quốc cho đơn từ 500k</span>
+      </div>
+      <div class="top-bar-right">
+        <span class="top-bar-link"><i class="bi bi-telephone-fill"></i> Hotline: 1900 6868</span>
+        <a href="Homepage.html" class="dashboard-btn-pill" title="Mở trang giám sát cảm biến & công tắc IoT">
+          <i class="bi bi-speedometer2"></i> Hệ thống IoT Dashboard
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= MAIN HEADER ================= -->
+  <header class="site-header">
+    <div class="header-main">
+      <div class="container">
+        <!-- Logo -->
+        <a href="index.html" class="brand-logo">
+          <div class="brand-icon">
+            <i class="bi bi-house-gear-fill"></i>
+          </div>
+          <div class="brand-text">
+            <h1>SmartHome <span>Store</span></h1>
+            <p>Thiết bị Nhà Thông Minh</p>
+          </div>
+        </a>
+
+        <!-- Search Bar -->
+        <div class="header-search">
+          <div class="search-input-wrap">
+            <i class="bi bi-search"></i>
+            <input type="text" id="headerSearchInput" placeholder="Tìm kiếm cảm biến, công tắc, camera, khóa thông minh..." autocomplete="off">
+            <button class="search-btn" onclick="window.location.href='catalog.html?search=' + encodeURIComponent(document.getElementById('headerSearchInput').value)">
+              Tìm kiếm
+            </button>
+          </div>
+          <div class="search-results-dropdown" id="headerSearchDropdown"></div>
+        </div>
+
+        <!-- Header Actions -->
+        <div class="header-actions">
+          <!-- Wishlist -->
+          <a href="profile.html?tab=wishlist" class="action-btn" title="Danh sách yêu thích">
+            <div class="action-icon-wrap">
+              <i class="bi bi-heart"></i>
+              <span class="badge-count wishlist-count-badge" style="display:none;">0</span>
+            </div>
+            <div class="action-text d-none-mobile">
+              <small>Yêu thích</small>
+              <strong>Sản phẩm</strong>
+            </div>
+          </a>
+
+          <!-- Cart Drawer Button -->
+          <button class="action-btn btn-open-cart" title="Xem giỏ hàng">
+            <div class="action-icon-wrap">
+              <i class="bi bi-cart3"></i>
+              <span class="badge-count cart-count-badge" style="display:none;">0</span>
+            </div>
+            <div class="action-text">
+              <small>Giỏ hàng</small>
+              <strong class="cart-total-header">0đ</strong>
+            </div>
+          </button>
+
+          <!-- User Menu Dropdown -->
+          <div class="user-menu-wrapper">
+            <div class="user-btn-trigger" id="userMenuBtn">
+              <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=100&q=80" alt="Avatar" class="user-avatar-sm">
+              <i class="bi bi-chevron-down" style="font-size:12px; color:var(--text-muted);"></i>
+            </div>
+            <div class="user-dropdown-menu" id="userDropdown">
+              <div class="dropdown-user-header">
+                <strong>Nguyễn Văn An</strong>
+                <span>Thành viên Vàng</span>
+              </div>
+              <a href="profile.html?tab=overview" class="dropdown-item">
+                <i class="bi bi-person-circle"></i> Tài khoản của tôi
+              </a>
+              <a href="profile.html?tab=orders" class="dropdown-item">
+                <i class="bi bi-box-seam"></i> Quản lý đơn hàng
+              </a>
+              <a href="profile.html?tab=addresses" class="dropdown-item">
+                <i class="bi bi-geo-alt"></i> Sổ địa chỉ nhận
+              </a>
+              <a href="profile.html?tab=wishlist" class="dropdown-item">
+                <i class="bi bi-heart"></i> Danh sách yêu thích
+              </a>
+              <a href="profile.html?tab=security" class="dropdown-item">
+                <i class="bi bi-shield-lock"></i> Đổi mật khẩu
+              </a>
+              <a href="Homepage.html" class="dropdown-item" style="color:var(--primary); font-weight:600; border-top:1px solid var(--border-light); margin-top:4px;">
+                <i class="bi bi-cpu" style="color:var(--primary);"></i> Vào IoT Dashboard
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Secondary Nav Bar -->
+    <nav class="header-nav">
+      <div class="container">
+        <ul class="nav-links">
+          <li class="nav-item active"><a href="index.html"><i class="bi bi-house-door"></i> Trang chủ</a></li>
+          <li class="nav-item"><a href="catalog.html"><i class="bi bi-grid"></i> Tất cả sản phẩm</a></li>
+          <li class="nav-item"><a href="catalog.html?category=sensor"><i class="bi bi-broadcast-pin"></i> Cảm biến thông minh</a></li>
+          <li class="nav-item"><a href="catalog.html?category=switch"><i class="bi bi-toggle-on"></i> Công tắc & Ổ cắm</a></li>
+          <li class="nav-item"><a href="catalog.html?category=light"><i class="bi bi-lightbulb"></i> Chiếu sáng RGB</a></li>
+          <li class="nav-item"><a href="catalog.html?category=security"><i class="bi bi-shield-check"></i> Khóa & Camera AI</a></li>
+          <li class="nav-item"><a href="catalog.html?category=combo"><i class="bi bi-box-seam"></i> Combo Tiết Kiệm <span class="badge-hot">HOT</span></a></li>
+          <li class="nav-item" style="margin-left:auto;"><a href="checkout.html"><i class="bi bi-credit-card"></i> Thanh toán đơn</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <!-- ================= HERO SECTION ================= -->
+  <section class="hero-section">
+    <div class="container">
+      <div class="hero-banner">
+        <div class="hero-grid">
+          <div class="hero-content">
+            <div class="hero-tag">
+              <i class="bi bi-stars"></i> Giải Pháp Nhà Thông Minh Thế Hệ Mới
+            </div>
+            <h1 class="hero-title">
+              Kiến tạo Ngôi nhà Đẳng cấp, <span>Tiện nghi & Tự động</span>
+            </h1>
+            <p class="hero-subtitle">
+              Trải nghiệm hệ sinh thái IoT Zigbee 3.0 & Wi-Fi đồng bộ hoàn hảo. Giám sát nhiệt độ, điều khiển ánh sáng và bảo vệ gia đình 24/7 chỉ với 1 chạm.
+            </p>
+            <div class="hero-actions">
+              <a href="catalog.html" class="btn-primary">
+                <i class="bi bi-bag-check-fill"></i> Mua sắm thiết bị ngay
+              </a>
+              <a href="catalog.html?category=combo" class="btn-outline-white">
+                <i class="bi bi-box-seam"></i> Xem các gói Combo
+              </a>
+            </div>
+          </div>
+
+          <div class="hero-visual">
+            <div class="hero-card-preview">
+              <div class="preview-badge-row">
+                <span class="preview-badge">HỆ THỐNG TRỰC TUYẾN</span>
+                <span class="preview-status"><span class="pulse-dot"></span> Sẵn sàng kết nối</span>
+              </div>
+              <div class="preview-img-wrap">
+                <img src="https://images.unsplash.com/photo-1558002038-1055907df827?auto=format&fit=crop&w=700&q=80" alt="SmartHome Setup">
+              </div>
+              <div class="preview-info">
+                <h3>Bộ Trung Tâm Aqara Smart Hub M2</h3>
+                <p>Điều khiển hồng ngoại 360°, kết nối 128 thiết bị cảm biến</p>
+                <div class="preview-metrics">
+                  <div class="metric-item">
+                    <span>Độ trễ</span>
+                    <strong>< 15ms</strong>
+                  </div>
+                  <div class="metric-item">
+                    <span>Chuẩn sóng</span>
+                    <strong>Zigbee 3.0</strong>
+                  </div>
+                  <div class="metric-item">
+                    <span>Bảo hành</span>
+                    <strong>24 Tháng</strong>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4 Core Pillars -->
+      <div class="hero-features-bar">
+        <div class="feature-pill">
+          <div class="feature-pill-icon"><i class="bi bi-patch-check-fill"></i></div>
+          <div class="feature-pill-text">
+            <h4>100% Chính Hãng</h4>
+            <p>Bảo hành 24 tháng, 1 đổi 1 trong 30 ngày</p>
+          </div>
+        </div>
+        <div class="feature-pill">
+          <div class="feature-pill-icon"><i class="bi bi-truck"></i></div>
+          <div class="feature-pill-text">
+            <h4>Miễn Phí Vận Chuyển</h4>
+            <p>Áp dụng toàn quốc cho đơn hàng từ 500k</p>
+          </div>
+        </div>
+        <div class="feature-pill">
+          <div class="feature-pill-icon"><i class="bi bi-router-fill"></i></div>
+          <div class="feature-pill-text">
+            <h4>Đồng Bộ Dashboard IoT</h4>
+            <p>Tương thích hoàn toàn hệ thống Web & App</p>
+          </div>
+        </div>
+        <div class="feature-pill">
+          <div class="feature-pill-icon"><i class="bi bi-headset"></i></div>
+          <div class="feature-pill-text">
+            <h4>Hỗ Trợ Kỹ Thuật 24/7</h4>
+            <p>Kỹ sư hướng dẫn thiết lập kịch bản tự động</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CATEGORY CARDS SECTION ================= -->
+  <section class="category-section">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-title-wrap">
+          <h2><i class="bi bi-grid-3x3-gap-fill" style="color:var(--primary);"></i> Danh Mục Thiết Bị</h2>
+          <p>Lựa chọn thiết bị thông minh phù hợp cho từng không gian sống của bạn</p>
+        </div>
+        <a href="catalog.html" class="view-all-link">Xem tất cả danh mục <i class="bi bi-arrow-right"></i></a>
+      </div>
+
+      <div class="category-grid">
+        <a href="catalog.html?category=sensor" class="category-card">
+          <div class="cat-icon-circle"><i class="bi bi-broadcast-pin"></i></div>
+          <h3>Cảm Biến Thông Minh</h3>
+          <span>Nhiệt độ, cửa, khói, gas</span>
+        </a>
+        <a href="catalog.html?category=switch" class="category-card">
+          <div class="cat-icon-circle"><i class="bi bi-toggle-on"></i></div>
+          <h3>Công Tắc & Ổ Cắm</h3>
+          <span>Cảm ứng kính, đo điện</span>
+        </a>
+        <a href="catalog.html?category=light" class="category-card">
+          <div class="cat-icon-circle"><i class="bi bi-lightbulb-fill"></i></div>
+          <h3>Chiếu Sáng RGB</h3>
+          <span>16 triệu màu, LED Neon</span>
+        </a>
+        <a href="catalog.html?category=security" class="category-card">
+          <div class="cat-icon-circle"><i class="bi bi-shield-lock-fill"></i></div>
+          <h3>Khóa & Camera AI</h3>
+          <span>Vân tay, nhận diện mặt</span>
+        </a>
+        <a href="catalog.html?category=hub" class="category-card">
+          <div class="cat-icon-circle"><i class="bi bi-router-fill"></i></div>
+          <h3>Bộ Điều Khiển & Hub</h3>
+          <span>Gateway Zigbee, màn hình</span>
+        </a>
+        <a href="catalog.html?category=combo" class="category-card">
+          <div class="cat-icon-circle"><i class="bi bi-box-seam-fill"></i></div>
+          <h3>Combo Trọn Gói</h3>
+          <span>Tiết kiệm đến 25%</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FLASH SALE SECTION ================= -->
+  <section class="flash-sale-section">
+    <div class="container">
+      <div class="flash-sale-box">
+        <div class="flash-sale-header">
+          <div class="flash-title-group">
+            <span class="flash-sale-badge"><i class="bi bi-lightning-charge-fill"></i> FLASH SALE HÔM NAY</span>
+            <div class="countdown-timer">
+              <span>Kết thúc trong:</span>
+              <div class="timer-digit" id="timerHours">08</div>
+              <div class="timer-separator">:</div>
+              <div class="timer-digit" id="timerMinutes">42</div>
+              <div class="timer-separator">:</div>
+              <div class="timer-digit" id="timerSeconds">19</div>
+            </div>
+          </div>
+          <a href="catalog.html?filter=sale" class="view-all-link" style="color:#881337;">
+            Xem tất cả ưu đãi <i class="bi bi-arrow-right"></i>
+          </a>
+        </div>
+
+        <div class="products-grid" id="flashSaleGrid">
+          <!-- Rendered dynamically by home script -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FEATURED & BEST SELLERS ================= -->
+  <section class="products-section" style="padding: 40px 0;">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-title-wrap">
+          <h2><i class="bi bi-fire" style="color:var(--accent);"></i> Thiết Bị Bán Chạy Nhất</h2>
+          <p>Các thiết bị IoT được tin dùng hàng đầu bởi hơn 10.000 gia đình Việt Nam</p>
+        </div>
+        <a href="catalog.html" class="view-all-link">Xem tất cả 16 sản phẩm <i class="bi bi-arrow-right"></i></a>
+      </div>
+
+      <div class="products-grid" id="featuredProductsGrid">
+        <!-- Rendered dynamically -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= INTERACTIVE SMART SOLUTION SHOWCASE ================= -->
+  <section class="solution-showcase-section">
+    <div class="container">
+      <div class="solution-box">
+        <div class="solution-grid">
+          <div>
+            <span class="badge-tag" style="margin-bottom:12px; display:inline-block;">KỊCH BẢN THỰC TẾ</span>
+            <h2 style="font-size:28px; font-weight:800; line-height:1.25; margin-bottom:12px;">
+              Một Chạm Tự Động Hóa Mọi Trải Nghiệm Trong Nhà
+            </h2>
+            <p style="font-size:14px; color:var(--text-muted); margin-bottom:20px;">
+              Kết nối cảm biến thông minh với công tắc và bóng đèn để thiết lập các ngữ cảnh sống hoàn hảo mà không cần thao tác thủ công.
+            </p>
+
+            <div class="scenario-list">
+              <div class="scenario-item active" onclick="activateScenario(0)">
+                <div class="scenario-icon"><i class="bi bi-door-open-fill"></i></div>
+                <div class="scenario-text">
+                  <h4>Ngữ Cảnh: Trở Về Nhà (Welcome Home)</h4>
+                  <p>Cảm biến cửa mở &rarr; Bật đèn phòng khách, điều hòa tự chỉnh 26°C, bật bản nhạc yêu thích.</p>
+                </div>
+              </div>
+
+              <div class="scenario-item" onclick="activateScenario(1)">
+                <div class="scenario-icon"><i class="bi bi-moon-stars-fill"></i></div>
+                <div class="scenario-text">
+                  <h4>Ngữ Cảnh: Chúc Ngủ Ngon (Good Night)</h4>
+                  <p>Tắt toàn bộ hệ thống đèn chính, kích hoạt đèn ngủ màu vàng ấm 2700K và khóa cửa tự động.</p>
+                </div>
+              </div>
+
+              <div class="scenario-item" onclick="activateScenario(2)">
+                <div class="scenario-icon"><i class="bi bi-shield-fill-check"></i></div>
+                <div class="scenario-text">
+                  <h4>Ngữ Cảnh: An Ninh 24/7 (Security Mode)</h4>
+                  <p>Khi vắng nhà, phát hiện chuyển động bất thường &rarr; Còi hú 85dB, gửi cảnh báo video về điện thoại.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="solution-preview-screen">
+            <div class="screen-topbar">
+              <div class="screen-topbar-title">
+                <i class="bi bi-cpu-fill"></i> <span id="scenarioTitleDisplay">Ngữ Cảnh: Trở Về Nhà</span>
+              </div>
+              <span style="font-size:11px; background:rgba(16,185,129,0.2); color:#34d399; padding:2px 8px; border-radius:4px;">Đang hoạt động</span>
+            </div>
+
+            <div class="device-status-bubbles" id="scenarioBubblesContainer">
+              <div class="bubble-card">
+                <div class="bubble-header">
+                  <i class="bi bi-door-open"></i>
+                  <span>Đã kích hoạt</span>
+                </div>
+                <h5>Cảm biến Cửa chính</h5>
+                <p>Trạng thái: Vừa mở lúc 18:30</p>
+              </div>
+
+              <div class="bubble-card">
+                <div class="bubble-header">
+                  <i class="bi bi-lightbulb-fill"></i>
+                  <span>Đã BẬT</span>
+                </div>
+                <h5>Đèn LED Phòng Khách</h5>
+                <p>Độ sáng: 100% (Vàng ấm)</p>
+              </div>
+
+              <div class="bubble-card">
+                <div class="bubble-header">
+                  <i class="bi bi-thermometer-half"></i>
+                  <span>26.5°C</span>
+                </div>
+                <h5>Cảm biến Nhiệt ẩm</h5>
+                <p>Điều hòa: Duy trì mát mẻ</p>
+              </div>
+
+              <div class="bubble-card">
+                <div class="bubble-header">
+                  <i class="bi bi-shield-check"></i>
+                  <span>An toàn</span>
+                </div>
+                <h5>Hệ thống Báo cháy</h5>
+                <p>Nồng độ khói: Bình thường (0ppm)</p>
+              </div>
+            </div>
+
+            <div style="margin-top:20px; text-align:center;">
+              <a href="Homepage.html" class="btn-primary" style="width:100%; justify-content:center; background:#10b981;">
+                <i class="bi bi-sliders"></i> Mở Bảng Điều Khiển Cảm Biến Thực Tế
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= NEWSLETTER & PROMO ================= -->
+  <section class="newsletter-section">
+    <div class="container">
+      <div class="newsletter-box">
+        <div class="newsletter-text">
+          <h3>Nhận Mã Giảm Giá 50.000đ Ngay Hôm Nay!</h3>
+          <p>Đăng ký nhận bản tin để cập nhật thiết bị thông minh mới nhất và các mã ưu đãi độc quyền.</p>
+        </div>
+        <form class="newsletter-form" onsubmit="event.preventDefault(); showToast('Cảm ơn bạn! Mã giảm giá WELCOME50 đã được gửi đến email của bạn.', 'success'); this.reset();">
+          <input type="email" placeholder="Nhập địa chỉ email của bạn..." required>
+          <button type="submit"><i class="bi bi-send-fill"></i> Đăng Ký</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h3><i class="bi bi-house-gear-fill" style="color:var(--primary-light);"></i> SmartHome Store</h3>
+          <p>Nhà phân phối thiết bị IoT và giải pháp nhà thông minh toàn diện, chính hãng Tuya, Aqara, Sonoff và Philips hàng đầu tại Việt Nam.</p>
+          <div class="footer-contact-item"><i class="bi bi-geo-alt-fill"></i> Số 88 Phố Hoàng Cầu, Đống Đa, Hà Nội</div>
+          <div class="footer-contact-item"><i class="bi bi-telephone-fill"></i> Hotline: 1900 6868 - 0912 345 678</div>
+          <div class="footer-contact-item"><i class="bi bi-envelope-fill"></i> support@smarthome-store.vn</div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Danh Mục</h4>
+          <ul class="footer-links">
+            <li><a href="catalog.html?category=sensor">Cảm biến thông minh</a></li>
+            <li><a href="catalog.html?category=switch">Công tắc & Ổ cắm</a></li>
+            <li><a href="catalog.html?category=light">Chiếu sáng thông minh</a></li>
+            <li><a href="catalog.html?category=security">Khóa & Camera an ninh</a></li>
+            <li><a href="catalog.html?category=hub">Bộ điều khiển trung tâm</a></li>
+            <li><a href="catalog.html?category=combo">Combo giải pháp trọn gói</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Tài Khoản & Đơn Hàng</h4>
+          <ul class="footer-links">
+            <li><a href="profile.html?tab=overview">Thông tin tài khoản</a></li>
+            <li><a href="profile.html?tab=orders">Tra cứu đơn hàng</a></li>
+            <li><a href="profile.html?tab=wishlist">Danh sách yêu thích</a></li>
+            <li><a href="profile.html?tab=addresses">Sổ địa chỉ nhận hàng</a></li>
+            <li><a href="checkout.html">Giỏ hàng & Thanh toán</a></li>
+            <li><a href="Homepage.html">Hệ thống IoT Dashboard</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Phương Thức Thanh Toán</h4>
+          <p style="font-size:13px; margin-bottom:12px;">Hỗ trợ đa dạng phương thức thanh toán an toàn, bảo mật tiêu chuẩn quốc tế:</p>
+          <div class="payment-badges">
+            <span class="payment-badge-pill"><i class="bi bi-cash-stack"></i> COD Tiền mặt</span>
+            <span class="payment-badge-pill"><i class="bi bi-qr-code"></i> VietQR Banking</span>
+            <span class="payment-badge-pill"><i class="bi bi-credit-card"></i> Visa / Master</span>
+            <span class="payment-badge-pill"><i class="bi bi-wallet2"></i> Ví MoMo / VNPay</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>&copy; 2026 SmartHome Store - Tất cả các quyền được bảo lưu. Thiết kế dành cho hệ thống IoT Nhà Thông Minh.</div>
+        <div style="display:flex; gap:16px;">
+          <a href="#" style="color:#cbd5e1;">Chính sách bảo hành</a>
+          <a href="#" style="color:#cbd5e1;">Chính sách đổi trả 30 ngày</a>
+          <a href="#" style="color:#cbd5e1;">Bảo mật thông tin</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ================= SLIDE-IN CART DRAWER ================= -->
+  <div class="cart-drawer-overlay" id="cartOverlay"></div>
+  <aside class="cart-drawer" id="cartDrawer">
+    <div class="drawer-header">
+      <h3><i class="bi bi-cart3" style="color:var(--primary);"></i> Giỏ hàng của bạn</h3>
+      <button class="close-drawer-btn" id="closeDrawerBtn"><i class="bi bi-x-lg"></i></button>
+    </div>
+    <div class="drawer-body" id="drawerItemsList">
+      <!-- Items dynamically populated by CartManager -->
+    </div>
+    <div class="drawer-footer">
+      <div class="drawer-subtotal-row">
+        <span>Tạm tính:</span>
+        <strong id="drawerSubtotal">0đ</strong>
+      </div>
+      <div class="drawer-footer-actions">
+        <a href="checkout.html" class="btn-checkout-drawer" id="drawerCheckoutBtn">
+          Tiến hành thanh toán <i class="bi bi-arrow-right"></i>
+        </a>
+        <a href="catalog.html" class="btn-view-cart" onclick="CartManager.closeDrawer()">
+          Tiếp tục xem sản phẩm
+        </a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ================= SCRIPTS ================= -->
+  <script src="js/store-data.js"></script>
+  <script src="js/store.js"></script>
+  <script>
+    // Khởi tạo hiển thị Flash Sale & Featured Products trên Trang chủ
+    document.addEventListener("DOMContentLoaded", () => {
+      // 1. Flash sale products
+      const flashContainer = document.getElementById("flashSaleGrid");
+      if (flashContainer) {
+        const flashProducts = STORE_PRODUCTS.filter(p => p.flashSale).slice(0, 4);
+        flashContainer.innerHTML = flashProducts.map(p => `
+          <div class="product-card">
+            <div class="product-thumb-wrap">
+              <img src="${p.image}" alt="${p.name}" loading="lazy">
+              <div class="product-badge-corner">
+                <span class="badge-tag sale">-${p.discount}%</span>
+              </div>
+              <button class="wishlist-btn ${WishlistManager.has(p.id) ? 'active' : ''}" data-id="${p.id}" onclick="WishlistManager.toggle('${p.id}')">
+                <i class="bi ${WishlistManager.has(p.id) ? 'bi-heart-fill' : 'bi-heart'}"></i>
+              </button>
+              <button class="quick-view-overlay-btn" onclick="openQuickView('${p.id}')">
+                <i class="bi bi-eye-fill"></i> Xem nhanh
+              </button>
+            </div>
+            <div class="product-body">
+              <div class="product-meta-row">
+                <span class="product-category-text">${p.categoryName}</span>
+                <span class="product-protocol-tag">${p.protocol}</span>
+              </div>
+              <a href="javascript:void(0)" onclick="openQuickView('${p.id}')" class="product-title">${p.name}</a>
+              <div class="product-pricing-row">
+                <span class="current-price">${formatVND(p.price)}</span>
+                <span class="old-price">${formatVND(p.originalPrice)}</span>
+              </div>
+              <div class="flash-progress-wrap">
+                <div class="flash-progress-bar">
+                  <div class="flash-progress-fill" style="width: 78%;"></div>
+                </div>
+                <div class="flash-progress-text">
+                  <span><i class="bi bi-fire"></i> Sắp hết hàng</span>
+                  <span>Đã bán 78%</span>
+                </div>
+              </div>
+              <div class="card-actions-row">
+                <button class="btn-add-cart" onclick="CartManager.addItem('${p.id}')">
+                  <i class="bi bi-cart-plus-fill"></i> Thêm vào giỏ
+                </button>
+              </div>
+            </div>
+          </div>
+        `).join("");
+      }
+
+      // 2. Featured products
+      const featContainer = document.getElementById("featuredProductsGrid");
+      if (featContainer) {
+        const featProducts = STORE_PRODUCTS.filter(p => p.featured).slice(0, 8);
+        featContainer.innerHTML = featProducts.map(p => `
+          <div class="product-card">
+            <div class="product-thumb-wrap">
+              <img src="${p.image}" alt="${p.name}" loading="lazy">
+              <div class="product-badge-corner">
+                ${p.badge ? `<span class="badge-tag hot">${p.badge}</span>` : ""}
+              </div>
+              <button class="wishlist-btn ${WishlistManager.has(p.id) ? 'active' : ''}" data-id="${p.id}" onclick="WishlistManager.toggle('${p.id}')">
+                <i class="bi ${WishlistManager.has(p.id) ? 'bi-heart-fill' : 'bi-heart'}"></i>
+              </button>
+              <button class="quick-view-overlay-btn" onclick="openQuickView('${p.id}')">
+                <i class="bi bi-eye-fill"></i> Xem nhanh
+              </button>
+            </div>
+            <div class="product-body">
+              <div class="product-meta-row">
+                <span class="product-category-text">${p.categoryName}</span>
+                <span class="product-protocol-tag">${p.protocol}</span>
+              </div>
+              <a href="javascript:void(0)" onclick="openQuickView('${p.id}')" class="product-title">${p.name}</a>
+              <div class="product-rating-row">
+                <div class="stars-list">
+                  <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                </div>
+                <span class="rating-score">${p.rating}</span>
+                <span class="reviews-count">(${p.soldCount} đã bán)</span>
+              </div>
+              <div class="product-pricing-row">
+                <span class="current-price">${formatVND(p.price)}</span>
+                ${p.originalPrice ? `<span class="old-price">${formatVND(p.originalPrice)}</span>` : ""}
+              </div>
+              <div class="card-actions-row">
+                <button class="btn-add-cart" onclick="CartManager.addItem('${p.id}')">
+                  <i class="bi bi-cart-plus-fill"></i> Thêm vào giỏ
+                </button>
+              </div>
+            </div>
+          </div>
+        `).join("");
+      }
+
+      // 3. Countdown timer logic
+      let secondsLeft = 8 * 3600 + 42 * 60 + 19;
+      setInterval(() => {
+        if (secondsLeft > 0) secondsLeft--;
+        const h = Math.floor(secondsLeft / 3600);
+        const m = Math.floor((secondsLeft % 3600) / 60);
+        const s = secondsLeft % 60;
+        const hEl = document.getElementById("timerHours");
+        const mEl = document.getElementById("timerMinutes");
+        const sEl = document.getElementById("timerSeconds");
+        if (hEl) hEl.textContent = String(h).padStart(2, "0");
+        if (mEl) mEl.textContent = String(m).padStart(2, "0");
+        if (sEl) sEl.textContent = String(s).padStart(2, "0");
+      }, 1000);
+    });
+
+    // Scenario switcher
+    const SCENARIOS = [
+      {
+        title: "Ngữ Cảnh: Trở Về Nhà",
+        bubbles: [
+          { icon: "bi-door-open", status: "Đã kích hoạt", title: "Cảm biến Cửa chính", desc: "Trạng thái: Vừa mở lúc 18:30" },
+          { icon: "bi-lightbulb-fill", status: "Đã BẬT", title: "Đèn LED Phòng Khách", desc: "Độ sáng: 100% (Vàng ấm)" },
+          { icon: "bi-thermometer-half", status: "26.5°C", title: "Cảm biến Nhiệt ẩm", desc: "Điều hòa: Duy trì mát mẻ" },
+          { icon: "bi-shield-check", status: "An toàn", title: "Hệ thống Báo cháy", desc: "Nồng độ khói: Bình thường (0ppm)" }
+        ]
+      },
+      {
+        title: "Ngữ Cảnh: Chúc Ngủ Ngon",
+        bubbles: [
+          { icon: "bi-moon-stars-fill", status: "Chế độ ngủ", title: "Ánh sáng Phòng ngủ", desc: "Chuyển sang 10% ánh trăng dịu" },
+          { icon: "bi-lock-fill", status: "Đã KHÓA", title: "Khóa FaceID Aqara D100", desc: "Chốt an toàn 3 tầng đóng chặt" },
+          { icon: "bi-fan", status: "27°C", title: "Điều hòa nhiệt độ", desc: "Hẹn giờ ngắt lúc 04:00 sáng" },
+          { icon: "bi-camera-video-fill", status: "Đang tuần tra", title: "Camera AI Ban công", desc: "Cảnh báo chuyển động mở" }
+        ]
+      },
+      {
+        title: "Ngữ Cảnh: An Ninh 24/7",
+        bubbles: [
+          { icon: "bi-bell-fill", status: "Sẵn sàng", title: "Còi Báo Động Aqara M2", desc: "Âm lượng 85dB sẵn sàng phát" },
+          { icon: "bi-shield-shaded", status: "Đang quét", title: "Cảm biến Chuyển động Sonoff", desc: "Phạm vi phát hiện 6m góc 110°" },
+          { icon: "bi-fire", status: "Giám sát 24/7", title: "Cảm biến Khói & Gas Tuya", desc: "Kết nối Wi-Fi liên tục không trễ" },
+          { icon: "bi-droplet-half", status: "Khô ráo", title: "Cảm biến Rò rỉ nước", desc: "Khu vực máy giặt và bồn rửa" }
+        ]
+      }
+    ];
+
+    function activateScenario(idx) {
+      document.querySelectorAll(".scenario-item").forEach((el, i) => {
+        el.classList.toggle("active", i === idx);
+      });
+      const scen = SCENARIOS[idx];
+      const titleEl = document.getElementById("scenarioTitleDisplay");
+      const bubblesEl = document.getElementById("scenarioBubblesContainer");
+      if (titleEl) titleEl.textContent = scen.title;
+      if (bubblesEl) {
+        bubblesEl.innerHTML = scen.bubbles.map(b => `
+          <div class="bubble-card">
+            <div class="bubble-header">
+              <i class="bi ${b.icon}"></i>
+              <span>${b.status}</span>
+            </div>
+            <h5>${b.title}</h5>
+            <p>${b.desc}</p>
+          </div>
+        `).join("");
+      }
+    }
+  </script>
+</body>
+</html>
+
